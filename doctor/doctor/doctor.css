@@ -429,4 +429,16 @@ input[type="file"]::file-selector-button:active {
     select:focus {
         scale: 1;
     }
+
+    .form-row > .input,
+    .form-row > .select,
+    .form-row > .special {
+        flex: none;
+        width: 100% !important;
+    }
+    
+    .select select,
+    .special select {
+        width: 100% !important;
+    }
 }
