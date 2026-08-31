@@ -1,0 +1,598 @@
+@font-face {
+    font-family: "font";
+    src: url("font.ttf") format("truetype");
+}
+:root{
+  --ink:#18334a;
+  --muted:#6c7d8b;
+  --blue:#4d91c5;
+  --blue-dark:#2f6f9f;
+  --mint:#e9f8f3;
+  --soft:#f7fbfc;
+  --line:#dfeaf0;
+  --white:#ffffff;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body {
+    background: #f3f8fc;
+    color: var(--ink);
+    font-family: "font";
+    margin-left: 80px;
+}
+a{text-decoration:none;color:inherit}
+
+
+
+/* ================= HOME PAGE ================= */
+.page-content{max-width:1500px;margin:0 auto;padding:18px 3.5vw 0}
+
+.topbar{
+  min-height:72px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 4px 18px;border-bottom:1px solid rgba(223,234,240,.7)
+}
+.brand,.footer-brand{font-family:"font";font-size:22px;font-weight:800;display:flex;align-items:center;gap:9px}
+.brand>span>span,.footer-brand span{color:var(--blue)}
+.brand-mark{width:34px;height:34px; border-radius:11px;display:grid;place-items:center;}
+.top-actions{display:flex;align-items:center;gap:24px}.welcome{color:var(--muted);font-size:14px}
+#loginBtn{background:white;color:#18334a;border:1px solid var(--line);padding:11px 17px;font-family:"font"; cursor:pointer;border-radius:14px;font-weight:700;font-size:14px;transition:.2s}
+#loginBtn:hover{transform:translateY(-2px);box-shadow:0 10px 25px rgba(24,51,74,.1)}.login-btn span{color:var(--blue);margin-left:5px}
+
+.hero{
+  min-height:580px;margin-top:24px;border-radius:30px;overflow:hidden;position:relative;
+  display:grid;grid-template-columns:1.05fr .95fr;align-items:center;
+  background:linear-gradient(115deg,#e1f5f0 0%,#edf8f6 54%,#d9eef6 100%);
+  padding:60px 7%;isolation:isolate
+}
+.hero:after{content:"";position:absolute;width:450px;height:450px;border-radius:50%;background:rgba(255,255,255,.35);right:-150px;top:-170px;z-index:-1}
+.hero-content{max-width:650px}.eyebrow,.section-kicker{letter-spacing:.12em;font-size:11px;font-weight:800;color:#4b829b;font-family: "font";}
+.eyebrow{display:flex;align-items:center;gap:8px;margin-bottom:18px}.eyebrow span{width:22px;height:2px;background:#4b829b}
+.hero h1{font:800 clamp(42px,5vw,72px)/1.05 "font";letter-spacing:-.055em;margin-bottom:22px}.hero h1 em{font-style:normal;color:var(--blue-dark)}
+.hero p{max-width:550px;font-size:17px;line-height:1.7;color:#597080}.hero-actions{display:flex;gap:12px;margin-top:30px;flex-wrap:wrap}
+.primary-btn,.secondary-btn{padding:15px 21px;border-radius:30px;font-weight:700;font-size:14px;transition:.25s}
+.primary-btn{background:var(--ink);color:white}.primary-btn span{margin-left:8px}.secondary-btn{border:1px solid #bdd4df;background:rgba(255,255,255,.55)}
+.primary-btn:hover,.secondary-btn:hover{transform:translateY(-3px);box-shadow:0 12px 25px rgba(24,51,74,.13)}
+.trust-row{display:flex;gap:22px;flex-wrap:wrap;margin-top:32px;color:#5b7480;font-size:13px;font-weight:600}.trust-row strong{color:#33926e;margin-right:5px}
+
+.hero-visual{position:relative;height:440px;margin-left:30px}.hero-image-wrap{height:100%;border-radius:28px;overflow:hidden;box-shadow:0 25px 50px rgba(43,91,112,.2);transform:rotate(2deg)}
+.hero-image-wrap img{width:100%;height:100%;object-fit:cover}.floating-card{position:absolute;background:rgba(255,255,255,.93);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.9);box-shadow:0 14px 35px rgba(30,70,90,.14);border-radius:17px;padding:13px 16px;display:flex;align-items:center;gap:10px}.floating-card small{display:block;color:#78909b;font-size:11px;margin-bottom:2px}.floating-card strong{font-size:12px}.appointment-card{left:-35px;bottom:50px}.wait-card{right:-25px;top:50px}.mini-icon{font-size:22px}.pulse{width:9px;height:9px;background:#3ca97a;border-radius:50%;box-shadow:0 0 0 6px rgba(60,169,122,.12)}
+
+.quick-section,.content-section{padding:82px 0 0}.section-heading{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:28px}.section-heading h2{font:800 clamp(27px,3vw,38px)/1.15 "font";letter-spacing:-.035em;margin-top:7px}.section-heading p{color:var(--muted);margin-top:9px}.text-link{font-size:14px;font-weight:800;color:var(--blue-dark);white-space:nowrap}.text-link span{margin-left:5px}.compact{margin-bottom:20px}
+.quick-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.quick-card{background:white;border:1px solid var(--line);padding:24px;border-radius:20px;display:flex;align-items:center;gap:15px;position:relative;transition:.25s}.quick-card:hover{transform:translateY(-5px);box-shadow:0 18px 35px rgba(30,68,85,.08);border-color:#bcd8e4}.quick-icon{width:48px;height:48px;border-radius:14px;background:#edf7fa;display:grid;place-items:center;font-size:22px}.quick-card h3{font:700 16px "font"}.quick-card p{font-size:13px;line-height:1.45;color:var(--muted);margin-top:3px}.arrow{margin-left:auto;color:var(--blue);font-size:20px}
+
+.specialty-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.specialty-card{background:white;border:1px solid var(--line);border-radius:19px;padding:17px;display:flex;align-items:center;gap:13px;min-width:0;font-weight:700;font-size:14px;transition:.22s}.specialty-card:hover{transform:translateY(-4px);box-shadow:0 14px 28px rgba(35,76,96,.09);border-color:#b8d5e1}.specialty-card .icon-box{width:44px;height:44px;flex:none;border-radius:13px;background:#eff8f5;display:grid;place-items:center}.icon-box img{width:29px;height:29px;object-fit:contain}.explore-card{background:#eaf5fa;color:var(--blue-dark)}.explore-card .icon-box{background:var(--blue);color:white;font-size:21px}
+
+.hospitals-section{padding-bottom:82px}.hospital-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.hospital-card{background:white;border:1px solid var(--line);border-radius:20px;padding:18px;display:flex;align-items:center;gap:15px;font-weight:700;font-size:14px;transition:.22s}.hospital-card:hover{transform:translateY(-4px);box-shadow:0 14px 28px rgba(35,76,96,.09)}.hospital-logo{width:55px;height:55px;border-radius:14px;background:#f4f8fa;overflow:hidden;display:grid;place-items:center;flex:none}.hospital-logo img{width:100%;height:100%;object-fit:contain}
+
+.about-section{background:#183a50;border-radius:30px;padding:65px 7%;display:grid;grid-template-columns:1.05fr .95fr;gap:60px;color:white;align-items:center}.about-section .section-kicker{color:#8fc5d6}.about-section h2{font:800 clamp(31px,3.5vw,48px)/1.15 "font";letter-spacing:-.04em;margin:10px 0 18px}.about-copy>p{color:#c4d6de;line-height:1.7;max-width:600px}.feature-list{margin-top:28px;display:grid;gap:15px}.feature-list>div{display:flex;gap:15px;align-items:flex-start}.feature-list span{font-size:12px;color:#87c5da;font-weight:800;padding-top:2px}.feature-list p{color:#bfd1d9;font-size:14px;line-height:1.5}.feature-list strong{color:white;display:block}.about-visual{position:relative}.about-image{height:400px;border-radius:24px;overflow:hidden}.about-image img{width:100%;height:100%;object-fit:cover}.about-badge{position:absolute;right:-20px;bottom:28px;background:#e4f4ef;color:var(--ink);padding:18px 24px;border-radius:18px;font-size:14px;box-shadow:0 15px 35px rgba(0,0,0,.2)}.about-badge strong{font-size:20px}
+
+.footer{padding:42px 3px 32px;display:flex;justify-content:space-between;gap:25px;align-items:end}.footer p{font-size:13px;color:var(--muted);margin-top:8px}.footer-contact{display:flex;gap:20px;flex-wrap:wrap}.footer-contact a{font-size:13px;font-weight:600;color:#5c7280}
+
+@media(max-width:1000px){.hero{grid-template-columns:1fr;padding:55px 8%}.hero-visual{margin:45px 10px 0;height:360px}.quick-grid{grid-template-columns:1fr}.specialty-grid{grid-template-columns:repeat(2,1fr)}.about-section{grid-template-columns:1fr}.about-visual{max-width:650px}.hospital-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:650px){body{margin-left:0;padding-top:0}.page-content{padding:10px 18px 0}.topbar{min-height:55px}.welcome{display:none}.hero{border-radius:23px;padding:45px 8%}.hero h1{font-size:43px}.hero-visual{height:280px;margin-left:0}.floating-card{transform:scale(.85)}.appointment-card{left:-18px}.wait-card{right:-18px}.section-heading{align-items:flex-start}.section-heading p{font-size:14px}.specialty-grid,.hospital-grid{grid-template-columns:1fr}.about-section{padding:48px 8%;border-radius:24px}.about-image{height:300px}.about-badge{right:-8px}.footer{flex-direction:column;align-items:flex-start}.footer-contact{flex-direction:column;gap:8px}}
+
+.auth-area {
+    position: relative;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+}
+
+.profile-menu {
+    position: relative;
+    z-index: 9999;
+}
+/* ---------- PROFILE CIRCLE ---------- */
+
+.profile-trigger {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    padding: 3px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    
+    /* Important: allows the green dot to extend outside */
+    overflow: visible;
+
+    background: linear-gradient(135deg, #31568F, #79a6d2);
+    box-shadow:
+        0 5px 18px rgba(49, 86, 143, 0.25),
+        0 0 0 3px rgba(49, 86, 143, 0.08);
+
+    transition: transform 0.3s ease,
+                box-shadow 0.3s ease;
+}
+
+/* Small online/status dot */
+.profile-trigger::after {
+    content: "";
+    position: absolute;
+    width: 11px;
+    height: 11px;
+    right: 1px;
+    bottom: 2px;
+    background: #42c87a;
+    border: 2px solid white;
+    border-radius: 50%;
+    z-index: 2;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+.profile-trigger:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow:
+        0 10px 25px rgba(49, 86, 143, 0.35),
+        0 0 0 5px rgba(49, 86, 143, 0.08);
+}
+
+.profile-trigger:active {
+    transform: scale(0.94);
+}
+
+.profile-trigger img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+
+/* =========================================
+   DROPDOWN CARD
+========================================= */
+
+.profile-dropdown {
+    position: absolute;
+    top: 68px;
+    right: 0;
+    width: 270px;
+
+    padding: 8px;
+    border-radius: 20px;
+
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    border: 1px solid rgba(255, 255, 255, 0.7);
+
+    box-shadow:
+        0 20px 50px rgba(31, 56, 88, 0.18),
+        0 5px 15px rgba(0, 0, 0, 0.06);
+
+    /* Hidden animation state */
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-15px) scale(0.96);
+    transform-origin: top right;
+
+    transition:
+        opacity 0.25s ease,
+        transform 0.3s cubic-bezier(.2, .8, .2, 1),
+        visibility 0.3s;
+
+    z-index: 1000;
+}
+
+/* Little arrow pointing to profile picture */
+.profile-dropdown::before {
+    content: "";
+    position: absolute;
+    top: -7px;
+    right: 17px;
+
+    width: 14px;
+    height: 14px;
+
+    background: rgba(255, 255, 255, 0.92);
+    transform: rotate(45deg);
+
+    border-left: 1px solid rgba(255, 255, 255, 0.7);
+    border-top: 1px solid rgba(255, 255, 255, 0.7);
+}
+
+/* OPEN STATE */
+.profile-menu.open .profile-dropdown {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
+}
+
+
+/* =========================================
+   PROFILE HEADER
+========================================= */
+
+.profile-dropdown-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 13px 12px;
+    margin-bottom: 3px;
+
+    border-radius: 14px;
+    background: linear-gradient(
+        135deg,
+        rgba(49, 86, 143, 0.08),
+        rgba(121, 166, 210, 0.13)
+    );
+
+    animation: profileHeaderIn 0.4s ease both;
+}
+
+.profile-dropdown-header img {
+    width: 46px;
+    height: 46px;
+    flex-shrink: 0;
+
+    border-radius: 50%;
+    object-fit: cover;
+
+    border: 2px solid white;
+    box-shadow: 0 4px 12px rgba(49, 86, 143, 0.2);
+}
+
+.profile-dropdown-header strong {
+    display: block;
+    color: #263c5b;
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 3px;
+}
+
+.profile-dropdown-header span {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+
+    font-size: 12px;
+    color: #6b7b8f;
+}
+
+.profile-dropdown-header span::before {
+    content: "●";
+    color: #42c87a;
+    font-size: 9px;
+}
+
+
+/* =========================================
+   MENU ITEMS
+========================================= */
+
+.dropdown-divider {
+    height: 1px;
+    border: none;
+    background: rgba(49, 86, 143, 0.09);
+    margin: 7px 5px;
+}
+
+.dropdown-item {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+    padding: 12px 13px;
+
+    border: none;
+    border-radius: 12px;
+
+    background: transparent;
+    color: #41516a;
+
+    text-align: left;
+    font-size: 14px;
+    font-family: inherit;
+    font-weight: 500;
+
+    cursor: pointer;
+    overflow: hidden;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+/* Arrow appears on hover */
+.dropdown-item::after {
+    content: "›";
+    position: absolute;
+    right: 14px;
+
+    font-size: 22px;
+    opacity: 0;
+    transform: translateX(-5px);
+
+    transition: 0.2s ease;
+}
+
+.dropdown-item:hover {
+    background: rgba(49, 86, 143, 0.09);
+    color: #31568F;
+    transform: translateX(3px);
+}
+
+.dropdown-item:hover::after {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.dropdown-item:active {
+    transform: scale(0.97);
+}
+
+
+/* =========================================
+   LOGOUT ITEM
+========================================= */
+
+.logout-item {
+    color: #d9534f;
+}
+
+.logout-item:hover {
+    background: rgba(217, 83, 79, 0.09);
+    color: #c43e3a;
+}
+
+
+/* =========================================
+   STAGGERED OPEN ANIMATION
+========================================= */
+
+.profile-menu.open .dropdown-item {
+    animation: menuItemIn 0.35s ease both;
+}
+
+.profile-menu.open .dropdown-item:nth-of-type(1) {
+    animation-delay: 0.05s;
+}
+
+.profile-menu.open .dropdown-item:nth-of-type(2) {
+    animation-delay: 0.1s;
+}
+
+.profile-menu.open .dropdown-item:nth-of-type(3) {
+    animation-delay: 0.15s;
+}
+
+@keyframes menuItemIn {
+    from {
+        opacity: 0;
+        transform: translateX(-8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes profileHeaderIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+/* =========================================
+   ✨ LIVING AMBIENT LIGHT
+========================================= */
+
+#ambient-light {
+    position: fixed;
+    width: 650px;
+    height: 650px;
+    left: var(--mouse-x, 50%);
+    top: var(--mouse-y, 50%);
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: radial-gradient(
+        circle,
+        rgba(77, 145, 197, 0.038) 5%,
+        rgba(121, 166, 210, 0.1) 10%,
+        transparent 70%
+    );
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    mix-blend-mode: multiply;
+}
+
+html.dark-mode #ambient-light,
+body.dark-mode #ambient-light {
+    background: radial-gradient(
+        circle,
+        rgba(142, 202, 255, 0.1) 0%,
+        rgba(77, 145, 197, 0.08) 20%,
+        transparent 70%
+    );
+    mix-blend-mode: screen;
+}
+
+body.ambient-active #ambient-light {
+    opacity: 1;
+}
+
+/* 🌙 DARK MODE */
+html.dark-mode {
+    background: #0d1720;
+}
+
+html.dark-mode body,
+body.dark-mode {
+    background: #0d1720 !important;
+    color: #eaf3f8 !important;
+}
+
+html.dark-mode .topbar,
+body.dark-mode .topbar {
+    border-bottom-color: #243a4a !important;
+}
+
+html.dark-mode .quick-card,
+html.dark-mode .specialty-card,
+html.dark-mode .hospital-card,
+body.dark-mode .quick-card,
+body.dark-mode .specialty-card,
+body.dark-mode .hospital-card {
+    background: #152530 !important;
+    color: #eaf3f8 !important;
+    border-color: #2a414f !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
+}
+
+html.dark-mode .quick-card:hover,
+html.dark-mode .specialty-card:hover,
+html.dark-mode .hospital-card:hover,
+body.dark-mode .quick-card:hover,
+body.dark-mode .specialty-card:hover,
+body.dark-mode .hospital-card:hover {
+    border-color: #406c8a !important;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35) !important;
+}
+
+html.dark-mode .hero,
+body.dark-mode .hero {
+    background: linear-gradient(115deg, #122a30, #132833, #172e3d) !important;
+}
+
+html.dark-mode .hero h1,
+html.dark-mode .section-heading h2,
+body.dark-mode .hero h1,
+body.dark-mode .section-heading h2 {
+    color: #ffffff !important;
+}
+
+html.dark-mode .hero p,
+html.dark-mode .section-heading p,
+html.dark-mode .quick-card p,
+body.dark-mode .hero p,
+body.dark-mode .section-heading p,
+body.dark-mode .quick-card p {
+    color: #aebfc9 !important;
+}
+
+html.dark-mode .hero-panel,
+body.dark-mode .hero-panel {
+    background: rgba(21, 37, 48, 0.9) !important;
+    border-color: #2a414f !important;
+}
+
+html.dark-mode .panel-stat strong,
+body.dark-mode .panel-stat strong {
+    color: #8ecbff !important;
+}
+
+html.dark-mode .panel-stat span,
+body.dark-mode .panel-stat span {
+    color: #aebfc9 !important;
+}
+
+html.dark-mode .profile-dropdown,
+body.dark-mode .profile-dropdown {
+    background: #152530 !important;
+    border-color: #243a4a !important;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45) !important;
+}
+
+html.dark-mode .profile-dropdown-header,
+body.dark-mode .profile-dropdown-header {
+    background: rgba(77, 145, 197, 0.12) !important;
+}
+
+html.dark-mode .profile-dropdown-header strong,
+body.dark-mode .profile-dropdown-header strong {
+    color: #ffffff !important;
+}
+
+html.dark-mode .profile-dropdown-header span,
+body.dark-mode .profile-dropdown-header span {
+    color: #aebfc9 !important;
+}
+
+html.dark-mode .dropdown-divider,
+body.dark-mode .dropdown-divider {
+    background: #243a4a !important;
+}
+
+html.dark-mode .dropdown-item,
+body.dark-mode .dropdown-item {
+    color: #c7d8e2 !important;
+}
+
+html.dark-mode .dropdown-item:hover,
+body.dark-mode .dropdown-item:hover {
+    background: #1e3547 !important;
+    color: #8ecbff !important;
+}
+
+html.dark-mode .footer,
+body.dark-mode .footer {
+    border-top-color: #243a4a !important;
+}
+
+.brand-logo {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.brand:hover .brand-logo {
+    transform: scale(1.06);
+}
+
+/* Small cursor glow trail */
+.cursor-trail {
+    position: fixed;
+    z-index: 998;
+    pointer-events: none;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(77, 145, 197, 0.28);
+    box-shadow: 0 0 10px rgba(77, 145, 197, 0.22);
+    animation: cursorTrail 0.45s ease-out forwards;
+}
+
+@keyframes cursorTrail {
+    from {
+        opacity: 0.45;
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    to {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.15);
+    }
+}
+
+/* Slightly brighter trail in dark mode */
+html.dark-mode .cursor-trail,
+body.dark-mode .cursor-trail {
+    background: rgba(142, 202, 255, 0.32);
+    box-shadow: 0 0 12px rgba(142, 202, 255, 0.28);
+}
+
+/* Do not show cursor effects on touch-only devices */
+@media (hover: none), (prefers-reduced-motion: reduce) {
+    .cursor-trail {
+        display: none;
+    }
+}

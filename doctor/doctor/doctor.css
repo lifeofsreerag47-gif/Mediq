@@ -1,0 +1,429 @@
+@font-face {
+    font-family: "font";
+    src: url("font.ttf") format("truetype");
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "font";
+    background-image: url(doctor.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
+}
+
+.doctor-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 30px;
+}
+
+.doctor-box {
+    width: 750px;
+    min-height: 700px;
+    height: auto;
+
+    padding: 50px 70px;
+    border-radius: 30px;
+
+    background: #B5DCFF;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+}
+
+.doctor-box h1 {
+    margin-bottom: 30px;
+    color: #375C94;
+    font-size: 32px;
+}
+
+.doctor-box h2 {
+    margin: 25px 0 20px;
+    color: #375C94;
+    font-size: 20px;
+}
+
+.form-row {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.input,
+select {
+    position: relative;
+    border-radius: 50px;
+    height: 50px;
+    width: 220px;
+    border: solid rgba(128, 128, 128, 0.333) 1px;
+    font-size: 15px;
+    background-color: #9DB5CB;
+    box-sizing: border-box;
+    padding-left: 25px;
+    transition: ease 0.25s;
+    font-family: "font";
+}
+input:focus{
+    outline: none;
+    scale:1.05;
+    box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.336);
+
+}
+select:focus{
+    outline: none;
+    scale:1.05;
+    box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.336);
+
+}
+
+
+/* ---------- PERSONAL DETAILS ALIGNMENT ---------- */
+
+/* First row: Full Name | DOB | Gender */
+
+#fullName {
+    flex: 2;
+    min-width: 0;
+}
+
+#dob {
+    flex: 1;
+    min-width: 0;
+    width: 200px;
+}
+
+#gender {
+    flex: 1;
+    min-width: 0;
+    width: 150px;
+}
+.select{
+    position: relative;
+    display: inline;
+}
+
+.select select{
+    appearance: none;
+    -webkit-appearance: none;
+    padding-right: 30px;
+}
+.arrow{
+    position: absolute;
+    width: 40px;
+    right: 5px;
+    top: 5px;
+    transform: rotate(0deg);
+    transition: transform 0.25s ease;
+    cursor: pointer;
+}
+
+.special{
+    position: relative;
+    display: inline;
+}
+
+.special select{
+    appearance: none;
+    -webkit-appearance: none;
+    padding-right: 30px;
+}
+.arrow1{
+    position: absolute;
+    width: 40px;
+    right:5px;
+    top: 5px;
+    transform: rotate(180deg);
+    transition: all ease 0.25s;
+    cursor: pointer;
+}
+
+/* Second row: Phone | Email */
+
+#phone,
+#email {
+    flex: 1;
+    min-width: 0;
+}
+
+.radio-input {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  z-index: -1;
+}
+.radio-design {
+  width: 22px;
+  height: 22px;
+  border-radius: 100px;
+  background: linear-gradient(to right bottom, hsl(154, 97%, 62%), hsl(225, 97%, 62%));
+  position: relative;
+  cursor: pointer;
+}
+.radio-design::before {
+  content: '';
+  display: inline-block;
+  width: inherit;
+  height: inherit;
+  border-radius: inherit;
+  background: hsl(0, 0%, 90%);
+  transform: scale(1.1);
+  transition: .3s;
+}
+
+.radio-input:checked+.radio-design::before {
+  transform: scale(0);
+}
+
+
+
+/* Third row: Address */
+
+#address {
+    width: 100%;
+}
+.hospital-question {
+    margin: 25px 0;
+}
+
+.hospital-question > label {
+    display: block;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #2f4d73;
+}
+
+.radio-group {
+    display: flex;
+    gap: 30px;
+}
+
+.radio-group label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 17px;
+}
+
+.radio-group input {
+    width: auto;
+    height: auto;
+}
+.proof-section {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.proof-section label {
+    font-size: 18px;
+    font-weight: bold;
+    color: #2f4d73;
+}
+
+.proof-section input[type="file"] {
+    height: auto;
+    padding: 15px;
+    border-radius: 55px;
+    width: 300px;
+    cursor: pointer;
+}
+
+input[type="file"]::file-selector-button {
+    background-color: #757575;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-family: "font";
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+input[type="file"]::file-selector-button:hover {
+    box-shadow: 5px 5px 20px 1px rgba(0, 0, 0, 0.26);
+    scale: 1.01;
+
+}
+input[type="file"]::file-selector-button:active {
+    scale: 0.9;
+
+}
+.terms-section {
+    margin: 25px 0;
+}
+
+.terms-section label {
+    display: flex;
+    gap: 10px;
+    font-size: 16px;
+    color: #2f4d73;
+    cursor: pointer;
+}
+
+#terms {
+    display: flex;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #555;
+    border-radius: 20px;
+    cursor: pointer;
+}
+#terms:checked {
+    background-image: url("Check.png");
+    background-size: 20px;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.terms-text {
+    position: relative;
+    
+    text-align: center;
+    justify-content: center;
+
+}
+
+.signup-btn {
+    display: block;
+    width: 20%;
+    height: 60px;
+    justify-items: center;
+    align-items: center;
+    text-align: center;
+    border: none;
+    border-radius: 40px;
+    margin: 20px auto;
+    background: #35AB68;
+    font-family: "font";
+    color: white;
+    transition: all 0.25s ease;
+    font-size: 20px;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.signup-btn:hover{
+    scale: 1.1;
+    box-shadow: 5px 5px 30px 1px rgba(0, 0, 0, 0.321);
+}
+.signup-btn:active{
+    scale: 0.99;
+    box-shadow: none;
+}
+
+.signin{
+    background-color: #FF9800;
+    border-radius: 30px;
+    border: none;
+    padding: 3px;
+    width: 230px;
+    font-family: "font";
+    margin-left: 195px;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.signin:hover{
+    background-color: #de8500;
+}
+
+@media (max-width: 600px) {
+    body {
+        display: block;
+        overflow-x: hidden;
+        overflow-y: auto;
+        background-attachment: scroll;
+    }
+
+    .doctor-container {
+        padding: 16px 12px;
+    }
+
+    .doctor-box {
+        width: 100%;
+        min-height: auto;
+        padding: 28px 18px;
+        border-radius: 20px;
+    }
+
+    .doctor-box h1 {
+        font-size: 26px;
+        margin-bottom: 22px;
+    }
+
+    .doctor-box h2 {
+        font-size: 19px;
+        margin: 22px 0 16px;
+    }
+
+    .form-row {
+        flex-direction: column;
+        gap: 14px;
+        margin-bottom: 14px;
+    }
+
+    .input,
+    select,
+    #dob,
+    #gender,
+    #address,
+    .select,
+    .special,
+    #phone,
+    #email {
+        width: 100% !important;
+    }
+
+    .select,
+    .special {
+        display: block;
+    }
+
+    .input,
+    select {
+        height: 50px;
+    }
+
+    .hospital-question > label,
+    .proof-section label {
+        font-size: 16px;
+    }
+
+    .radio-group {
+        flex-wrap: wrap;
+        gap: 16px;
+    }
+
+    .terms-section label {
+        font-size: 14px;
+        align-items: flex-start;
+    }
+
+    .signup-btn,
+    .signin {
+        width: 100%;
+        margin: 18px 0 0;
+    }
+
+    input:focus,
+    select:focus {
+        scale: 1;
+    }
+}

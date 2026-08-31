@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Sign Up | MediQ</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../popup.css">
+    <script src="../theme.js"></script>
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+</head>
+<body>
+    <div id="signup-sec">
+        <h2 style="color: #375C94; font-size: 30px;">Patient Details</h2>
+        <input id="fullname" placeholder="Full name" class="input">
+        <input id="dob" type="date" class="input" style="width: 180px;" placeholder="DOB">
+        <div class="select">
+        <select name="Gender" class="input" style="width: 130px; padding: 15px;" id="gender">
+            <option value="" selected disabled hidden style="color: #859BBD;">Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+        </select>
+        <img src="arrow.svg" class="arrow" id="arrow"><br>
+        </div>
+        <input id="phone" class="input" placeholder="Phone number">
+        <input id="email" type="email" class="input" placeholder="Email Address"><br>
+        <input id="password" class="input" placeholder="Password" type="password">
+        <input id="confirmPassword" class="input" placeholder="Confirm Password" type="password"><br><br><br>
+        <input type="checkbox" id="terms">
+        <span class="terms-text">I agree to the Terms & Conditions</span><br>
+        <button id="submit">Sign up</button><br>
+
+        <a href="../index.html"><button id="login" type="button">Have Account? Login then</button></a>
+    </div>
+    <script type="module" src="../popup.js"></script>
+    <script type="module" src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Find Doctors | MediQ</title>
+    <link rel="icon" type="image/x-icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="findoc.css">
+    <link rel="stylesheet" href="../../sidebar/sidebar.css">
+    <link rel="stylesheet" href="../../popup.css">
+    <script src="../../theme.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+
+<script>
+    fetch("../../sidebar/sidebar.html")
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById("sidebar-container").innerHTML = data;
+            // Set active page AFTER sidebar loads
+            if (typeof setActivePage === "function") setActivePage();
+        })
+        .catch(error => console.error("Sidebar loading error:", error));
+</script>
+
+<script src="../../sidebar/sidebar.js"></script>
+
+<body>
+
+    <div id="sidebar-container"></div>
+
+    <!-- MAIN PAGE -->
+    <div class="main-page">
+        
+        <!-- TOP SECTION -->
+        <div class="top-section">
+            <h1>Find Doctors</h1>
+        </div>
+            
+        <!-- CONTENT AREA -->
+        <div class="content">
+
+            <!-- FILTER SECTION -->
+            <aside class="filter-panel">
+
+                <div class="filter-header">
+                    <h2>☷ Filter By</h2>
+                    <span id="clearFilters" style="cursor: pointer;">Clear All</span>
+                </div>
+
+                <div class="filter-section">
+                    <h3>Speciality</h3>
+
+                    <label>
+                        <input type="checkbox" class="check filter-spec" value="Cardiology">
+                        Cardiology
+                    </label>
+
+                    <label>
+                        <input type="checkbox" class="check filter-spec" value="Dermatology">
+                        Dermatology
+                    </label>
+
+                    <label>
+                        <input type="checkbox" class="check filter-spec" value="Neurology">
+                        Neurology
+                    </label>
+
+                    <label>
+                        <input type="checkbox" class="check filter-spec" value="Dentistry">
+                        Dentistry
+                    </label>
+
+                    <label>
+                        <input type="checkbox" class="check filter-spec" value="General Physician">
+                        General Physician
+                    </label>
+
+                    <label>
+                        <input type="checkbox" class="check filter-spec" value="Orthopedics">
+                        Orthopedics
+                    </label>
+
+                    <label>
+                        <input type="checkbox" class="check filter-spec" value="Ophthalmology">
+                        Ophthalmology
+                    </label>
+
+                    <label>
+                        <input type="checkbox" class="check filter-spec" value="Pediatrics">
+                        Pediatrics
+                    </label>
+
+                    <label>
+                        <input type="checkbox" class="check filter-spec" value="Psychiatry">
+                        Psychiatry
+                    </label>
+
+                </div>
+
+            </aside>
+
+            <!-- DOCTOR AREA -->
+            <main class="doctor-area">
+
+                <div class="doctor-top">
+                    <div>
+                        <h1>Best Doctors | Book Appointment</h1>
+                        <p>Total Doctors: <b id="totalDoctorsCount">0</b></p>
+                    </div>
+
+                    <div class="search-doctor">
+                        <input
+                            type="text"
+                            id="doctorSearch"
+                            placeholder="Search by name, speciality, hospital..."
+                            style="border-radius: 50px; font-family: 'font';"
+                            class="searchbar"
+                        >
+                        <button type="button" id="searchBtn" style="border-radius: 50px; transform: translateX(-60px); scale: 0.85;">🔍</button>
+                    </div>
+                </div>
+
+                <!-- DOCTOR CARDS (Loaded in real-time) -->
+                <div class="doctor-cards" id="doctorCardsContainer">
+                    <p style="grid-column: 1 / -1; text-align: center; color: #64748b; padding: 40px;">
+                        Loading doctors in real-time...
+                    </p>
+                </div>
+                <!-- END DOCTOR CARDS -->
+
+            </main>
+
+        </div>
+        <!-- END CONTENT -->
+
+    </div>
+    <!-- END MAIN PAGE -->
+
+    <!-- ========================================================
+         BOOKING APPOINTMENT MODAL
+    ======================================================== -->
+    <div class="booking-overlay" id="bookingOverlay">
+        <div class="booking-modal">
+            <button class="modal-close-btn" id="closeBookingModal">×</button>
+            
+            <div class="booking-header">
+                <h2 id="bookDocName">Book Appointment</h2>
+                <p id="bookDocMeta">Select your preferred date and time slot</p>
+            </div>
+
+            <!-- Date Selection (Upcoming Week Only) -->
+            <div class="booking-field">
+                <label for="appointmentDate">📅 Select Date (Upcoming 7 Days)</label>
+                <input type="date" id="appointmentDate" required>
+            </div>
+
+            <!-- Time Slots -->
+            <div class="booking-field">
+                <label>⏰ Select Time Slot</label>
+                <div class="slots-grid" id="slotsGrid">
+                    <button type="button" class="slot-btn" data-slot="09:00 AM – 10:00 AM">09:00 AM – 10:00 AM</button>
+                    <button type="button" class="slot-btn" data-slot="10:00 AM – 11:00 AM">10:00 AM – 11:00 AM</button>
+                    <button type="button" class="slot-btn" data-slot="11:00 AM – 12:00 PM">11:00 AM – 12:00 PM</button>
+                    <button type="button" class="slot-btn" data-slot="01:00 PM – 02:00 PM">01:00 PM – 02:00 PM</button>
+                    <button type="button" class="slot-btn" data-slot="02:00 PM – 03:00 PM">02:00 PM – 03:00 PM</button>
+                    <button type="button" class="slot-btn" data-slot="03:00 PM – 04:00 PM">03:00 PM – 04:00 PM</button>
+                    <button type="button" class="slot-btn" data-slot="04:00 PM – 05:00 PM">04:00 PM – 05:00 PM</button>
+                </div>
+            </div>
+
+            <!-- Problem Notes (Limit 50 words) -->
+            <div class="booking-field">
+                <label for="appointmentNotes">📝 Reason for Visit / Symptoms (Optional)</label>
+                <textarea 
+                    id="appointmentNotes" 
+                    class="notes-textarea" 
+                    placeholder="Briefly describe your symptoms or reason for visit (max 50 words)..."
+                ></textarea>
+                <div class="word-count-hint" id="wordCountHint">
+                    <span>Keep it concise</span>
+                    <span id="wordCount">0 / 50 words</span>
+                </div>
+            </div>
+
+            <div class="booking-actions">
+                <button type="button" class="booking-confirm-btn" id="confirmBookingBtn">Confirm Appointment</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================
+         DIGITAL TICKET PASS POPUP (QR CODE)
+    ======================================================== -->
+    <div class="ticket-overlay" id="ticketOverlay">
+        <div class="ticket-modal">
+            <div class="ticket-top">
+                <div class="ticket-brand">✚ MediQ Digital Pass</div>
+                <h2 id="ticketDoctorName">Dr. Doctor Name</h2>
+                <div class="ticket-pass-badge">VERIFIED APPOINTMENT</div>
+            </div>
+
+            <div class="ticket-divider-wrap">
+                <div class="ticket-notch-left"></div>
+                <div class="ticket-dashed-line"></div>
+                <div class="ticket-notch-right"></div>
+            </div>
+
+            <div class="ticket-body">
+                <div class="ticket-info-grid">
+                    <div class="ticket-info-item">
+                        <span>Patient</span>
+                        <strong id="ticketPatientName">—</strong>
+                    </div>
+                    <div class="ticket-info-item">
+                        <span>Date</span>
+                        <strong id="ticketDate">—</strong>
+                    </div>
+                    <div class="ticket-info-item">
+                        <span>Time Slot</span>
+                        <strong id="ticketTimeSlot">—</strong>
+                    </div>
+                    <div class="ticket-info-item">
+                        <span>Speciality</span>
+                        <strong id="ticketSpeciality">—</strong>
+                    </div>
+                    <div class="ticket-info-item" style="grid-column: 1 / -1;">
+                        <span>Hospital / Clinic</span>
+                        <strong id="ticketHospital">—</strong>
+                    </div>
+                    <div class="ticket-info-item" style="grid-column: 1 / -1;">
+                        <span>Appointment ID</span>
+                        <strong id="ticketApptId" style="font-family: monospace; font-size: 13px; color: #2878c8;">—</strong>
+                    </div>
+                </div>
+
+                <div class="ticket-qr-container">
+                    <div id="ticketQrCode"></div>
+                    <div class="ticket-qr-hint">Scan at clinic during scheduled time slot for instant check-in</div>
+                </div>
+
+                <div class="ticket-actions">
+                    <button type="button" class="ticket-btn-primary" id="viewAppointmentsBtn">View in Appointments</button>
+                    <button type="button" class="ticket-btn-secondary" id="closeTicketBtn">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="../../popup.js"></script>
+    <script type="module" src="findoc.js"></script>
+
+</body>
+
+</html>

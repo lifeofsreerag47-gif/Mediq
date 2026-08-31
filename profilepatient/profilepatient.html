@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Patient Profile | MediQ</title>
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+    <link rel="stylesheet" href="profilepatient.css">
+    <link rel="stylesheet" href="../popup.css">
+    <link rel="stylesheet" href="../sidebar/sidebar.css">
+    <script src="../theme.js"></script>
+</head>
+<script>
+    fetch("../sidebar/sidebar.html")
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById("sidebar-container").innerHTML = data;
+
+            // Set active page AFTER sidebar loads
+            setActivePage();
+        })
+        .catch(error => console.error("Sidebar loading error:", error));
+</script>
+
+<script src="../sidebar/sidebar.js"></script>
+<body>
+    <!-- SIDEBAR: kept unchanged -->
+    <div id="sidebar-container"></div>
+   
+
+    <div class="profile-page">
+
+        <!-- PAGE TITLE -->
+        <div class="page-title">
+            <h1>Profile</h1>
+            <p>Manage your personal information and profile.</p>
+        </div>
+
+        <!-- MAIN PROFILE CARD -->
+        <main class="profile-main-box">
+
+            <!-- PROFILE HERO -->
+            <section class="patient-header">
+
+                <!-- PROFILE IMAGE -->
+                <div class="profile-image-wrapper">
+
+                    <img
+                        id="profile-image"
+                        src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 300 300'%3E%3Crect width='300' height='300' fill='%23e5e5e5'/%3E%3Ccircle cx='150' cy='110' r='55' fill='%23999999'/%3E%3Cpath d='M55 280c10-70 50-100 95-100s85 30 95 100' fill='%23999999'/%3E%3C/svg%3E"
+                        alt="Profile Picture"
+                    >
+
+                    <button
+                        id="edit-profile-picture"
+                        type="button"
+                        title="Change profile picture"
+                    >
+                        ✏️
+                    </button>
+
+                    <input
+                        type="file"
+                        id="profile-picture-input"
+                        accept="image/*"
+                        hidden
+                    >
+
+                </div>
+
+                <!-- BASIC INFO -->
+                <div class="patient-basic-info">
+
+                    <span class="profile-badge">
+                        MediQ Patient
+                    </span>
+
+                    <h1 id="patient-name-header">
+                        Loading...
+                    </h1>
+
+                    <p>
+                        Your personal healthcare profile
+                    </p>
+
+                </div>
+
+            </section>
+
+
+            <!-- INFORMATION SECTION -->
+            <section class="details-container">
+
+                <h2>Personal Information</h2>
+
+                <div class="details-grid">
+
+                    <div class="detail-box">
+                        <span>👤 Full Name</span>
+                        <strong id="p-fullname">Loading...</strong>
+                    </div>
+
+                    <div class="detail-box">
+                        <span>🎂 Date of Birth</span>
+                        <strong id="p-dob">Loading...</strong>
+                    </div>
+
+                    <div class="detail-box">
+                        <span>⚧ Gender</span>
+                        <strong id="p-gender">Loading...</strong>
+                    </div>
+
+                </div>
+
+
+                <h2>Contact Information</h2>
+
+                <div class="details-grid">
+
+                    <div class="detail-box">
+                        <span>📱 Phone Number</span>
+                        <strong id="p-phone">Loading...</strong>
+                    </div>
+
+                    <div class="detail-box">
+                        <span>✉️ Email Address</span>
+                        <strong id="p-email">Loading...</strong>
+                    </div>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+    <script type="module" src="../popup.js"></script>
+    <script type="module" src="profilepatient.js"></script>
+
+</body>
+</html>

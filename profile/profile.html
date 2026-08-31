@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Doctor Profile | MediQ</title>
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+    <link rel="stylesheet" href="profile.css">
+    <link rel="stylesheet" href="../popup.css">
+    <link rel="stylesheet" href="../sidebar/sidebar.css">
+    <script src="../theme.js"></script>
+</head>
+<script>
+    fetch("../sidebar/sidebar.html")
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById("sidebar-container").innerHTML = data;
+            // Set active page AFTER sidebar loads
+            if (typeof setActivePage === "function") setActivePage();
+        })
+        .catch(error => console.error("Sidebar loading error:", error));
+</script>
+
+<script src="../sidebar/sidebar.js"></script>
+<body>
+    <!-- SIDEBAR -->
+    <div id="sidebar-container"></div>
+ 
+    <div class="profile-page">
+        <!-- PAGE TITLE -->
+        <div class="page-title">
+            <h1>Doctor Profile</h1>
+            <p>Manage your professional details, credentials, and hospital information.</p>
+        </div>
+
+        <!-- MAIN PROFILE BOX -->
+        <div class="profile-main-box">
+
+            <!-- DOCTOR IMAGE + BASIC DETAILS -->
+            <div class="doctor-header">
+
+                <!-- DOCTOR IMAGE -->
+                <div class="doctor-photo">
+                    <img
+                        id="profileImage"
+                        src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 300 300'%3E%3Crect width='300' height='300' fill='%23e5e5e5'/%3E%3Ccircle cx='150' cy='110' r='55' fill='%23999999'/%3E%3Cpath d='M55 280c10-70 50-100 95-100s85 30 95 100' fill='%23999999'/%3E%3C/svg%3E"
+                        alt="Doctor Profile Picture"
+                    >
+
+                    <label for="profileUpload" class="photo-edit-btn" title="Change profile picture">
+                        ✏️
+                    </label>
+
+                    <input
+                        type="file"
+                        id="profileUpload"
+                        accept="image/*"
+                        hidden
+                    >
+                </div>
+
+                <!-- DOCTOR BASIC INFORMATION -->
+                <div class="doctor-basic-info">
+                    <h1>Dr. Aniket S Phutane</h1>
+                    <p class="speciality">Neurosciences</p>
+                    <p class="experience">7+ Years Experience</p>
+                </div>
+
+            </div>
+
+            <!-- DOCTOR DETAILS -->
+            <div class="details-container">
+
+                <h2>Doctor Details</h2>
+
+                <div class="details-grid">
+                    <!-- FULL NAME -->
+                    <div class="detail-box">
+                        <span>Full Name</span>
+                        <strong>Dr. Aniket S Phutane</strong>
+                    </div>
+
+                    <!-- SPECIALIZATION -->
+                    <div class="detail-box">
+                        <span>Specialization</span>
+                        <strong>Neurosciences</strong>
+                    </div>
+
+                    <!-- EXPERIENCE -->
+                    <div class="detail-box">
+                        <span>Experience</span>
+                        <strong>7+ Years</strong>
+                    </div>
+                </div>
+
+                <!-- PROFESSIONAL DETAILS -->
+                <h2>Professional Details</h2>
+
+                <div class="details-grid">
+                    <!-- QUALIFICATION -->
+                    <div class="detail-box">
+                        <span>Qualification</span>
+                        <strong>MBBS, DNB</strong>
+                    </div>
+
+                    <!-- LICENSE NUMBER -->
+                    <div class="detail-box">
+                        <span>Medical License Number</span>
+                        <strong>MED-123456</strong>
+                    </div>
+                </div>
+
+                <!-- HOSPITAL DETAILS -->
+                <h2>Hospital Details</h2>
+
+                <div class="hospital-grid">
+                    <!-- HOSPITAL NAME -->
+                    <div class="detail-box">
+                        <span>Hospital Name & Location</span>
+                        <strong>Apollo Hospitals, Hyderabad</strong>
+                    </div>
+                </div>
+
+            </div>
+            <!-- END DETAILS CONTAINER -->
+
+        </div>
+        <!-- END MAIN PROFILE BOX -->
+
+    </div>
+    <!-- END PROFILE PAGE -->
+
+    <script type="module" src="../popup.js"></script>
+    <script type="module" src="script.js"></script>
+</body>
+</html>

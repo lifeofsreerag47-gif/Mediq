@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospitals | MediQ</title>
+    <link rel="icon" type="image/x-icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="hospital.css">
+    <link rel="stylesheet" href="../../sidebar/sidebar.css">
+    <script src="../../theme.js"></script>
+</head>
+<script>
+    fetch("../../sidebar/sidebar.html")
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById("sidebar-container").innerHTML = data;
+
+            // Set active page AFTER sidebar loads
+            setActivePage();
+        })
+        .catch(error => console.error("Sidebar loading error:", error));
+</script>
+
+<script src="../../sidebar/sidebar.js"></script>
+<body>
+    <div id="sidebar-container"></div>
+
+    <main class="page-content" id="hospitals-page">
+        <!-- TOPBAR -->
+        <header class="topbar">
+            <div class="brand">
+                <div class="brand-mark">✚</div>
+                <span>Care<span>Connect</span></span>
+            </div>
+            <div class="top-actions">
+                <span class="welcome">Verified healthcare institutions</span>
+                <a href="../../home/Find_doctors/fincdoc.html" class="top-action-btn">Find Doctors <span>→</span></a>
+            </div>
+        </header>
+
+        <!-- HERO SECTION -->
+        <section class="hosp-hero">
+            <div class="hosp-hero-content">
+                <div class="eyebrow"><span></span> TRUSTED NETWORK</div>
+                <h1>
+                    Leading Hospitals &<br>
+                    <em>Healthcare Centers.</em>
+                </h1>
+                <p>
+                    Connect with premier hospital chains, state-of-the-art multi-specialty institutions, and renowned research facilities for comprehensive clinical care.
+                </p>
+
+                <div class="trust-row">
+                    <div><strong>✓</strong> Multi-Specialty Facilities</div>
+                    <div><strong>✓</strong> 17,000+ Doctors Network</div>
+                    <div><strong>✓</strong> Modern Infrastructure</div>
+                </div>
+            </div>
+            <div class="hero-stat-badge">
+                <span class="badge-num">9+</span>
+                <span class="badge-label">Premier Hospital Networks</span>
+            </div>
+        </section>
+
+        <!-- HOSPITALS GRID -->
+        <section class="content-section">
+            <div class="section-heading">
+                <div>
+                    <span class="section-kicker">PARTNER INSTITUTIONS</span>
+                    <h2>Featured Hospital Networks</h2>
+                    <p>Discover top-tier hospital systems known for medical excellence.</p>
+                </div>
+            </div>
+
+            <div class="hospital-cards-grid">
+                <!-- 1. Apollo Hospitals -->
+                <a href="../../home/Find_doctors/fincdoc.html" class="hosp-card">
+                    <div class="hosp-logo-wrap">
+                        <img src="apollo-hospitals.svg" alt="Apollo Hospitals">
+                    </div>
+                    <div class="hosp-info">
+                        <span class="hosp-badge">Tertiary & Quaternary Care</span>
+                        <h3>Apollo Hospitals</h3>
+                        <p class="hosp-meta">📍 75+ Major Hospitals • 520+ Clinics</p>
+                    </div>
+                    <span class="hosp-arrow">→</span>
+                </a>
+
+                <!-- 2. CARE Hospitals -->
+                <a href="../../home/Find_doctors/fincdoc.html" class="hosp-card">
+                    <div class="hosp-logo-wrap">
+                        <img src="care.png" alt="CARE Hospitals">
+                    </div>
+                    <div class="hosp-info">
+                        <span class="hosp-badge">Cardiac & Multi-Specialty</span>
+                        <h3>CARE Hospitals</h3>
+                        <p class="hosp-meta">📍 16 Multi-Specialty Centers in 7 Cities</p>
+                    </div>
+                    <span class="hosp-arrow">→</span>
+                </a>
+
+                <!-- 3. KGH Hospitals -->
+                <a href="../../home/Find_doctors/fincdoc.html" class="hosp-card">
+                    <div class="hosp-logo-wrap">
+                        <img src="kgh.avif" alt="KGH Hospitals">
+                    </div>
+                    <div class="hosp-info">
+                        <span class="hosp-badge">Government Teaching Hospital</span>
+                        <h3>KGH Hospitals</h3>
+                        <p class="hosp-meta">📍 Tertiary Medical College Campus</p>
+                    </div>
+                    <span class="hosp-arrow">→</span>
+                </a>
+
+                <!-- 4. KIMS Hospitals -->
+                <a href="../../home/Find_doctors/fincdoc.html" class="hosp-card">
+                    <div class="hosp-logo-wrap">
+                        <img src="kims.jpg" alt="KIMS Hospitals">
+                    </div>
+                    <div class="hosp-info">
+                        <span class="hosp-badge">Advanced Multi-Specialty</span>
+                        <h3>KIMS Hospitals</h3>
+                        <p class="hosp-meta">📍 27 Multi-Specialty Hospitals</p>
+                    </div>
+                    <span class="hosp-arrow">→</span>
+                </a>
+
+                <!-- 5. Medicover Hospitals -->
+                <a href="../../home/Find_doctors/fincdoc.html" class="hosp-card">
+                    <div class="hosp-logo-wrap">
+                        <img src="medicover.png" alt="Medicover Hospitals">
+                    </div>
+                    <div class="hosp-info">
+                        <span class="hosp-badge">European Standard Care</span>
+                        <h3>Medicover Hospitals</h3>
+                        <p class="hosp-meta">📍 26 Multi-Specialty Facilities</p>
+                    </div>
+                    <span class="hosp-arrow">→</span>
+                </a>
+
+                <!-- 6. Omega Hospitals -->
+                <a href="../../home/Find_doctors/fincdoc.html" class="hosp-card">
+                    <div class="hosp-logo-wrap">
+                        <img src="omega.png" alt="Omega Hospitals">
+                    </div>
+                    <div class="hosp-info">
+                        <span class="hosp-badge">Comprehensive Cancer Institute</span>
+                        <h3>Omega Hospitals</h3>
+                        <p class="hosp-meta">📍 6 Specialized Oncology Centers</p>
+                    </div>
+                    <span class="hosp-arrow">→</span>
+                </a>
+
+                <!-- 7. Queens Hospitals -->
+                <a href="../../home/Find_doctors/fincdoc.html" class="hosp-card">
+                    <div class="hosp-logo-wrap">
+                        <img src="queens.jpg" alt="Queens Hospitals">
+                    </div>
+                    <div class="hosp-info">
+                        <span class="hosp-badge">Specialized Healthcare</span>
+                        <h3>Queens Hospitals</h3>
+                        <p class="hosp-meta">📍 2 Regional Hospital Branches</p>
+                    </div>
+                    <span class="hosp-arrow">→</span>
+                </a>
+
+                <!-- 8. Seven Hills Hospitals -->
+                <a href="../../home/Find_doctors/fincdoc.html" class="hosp-card">
+                    <div class="hosp-logo-wrap">
+                        <img src="sevenhills.jpg" alt="Seven Hills Hospitals">
+                    </div>
+                    <div class="hosp-info">
+                        <span class="hosp-badge">Cardiac & Trauma Care</span>
+                        <h3>Seven-Hills Hospitals</h3>
+                        <p class="hosp-meta">📍 2 Mega Healthcare Campuses</p>
+                    </div>
+                    <span class="hosp-arrow">→</span>
+                </a>
+
+                <!-- 9. VIMS Hospitals -->
+                <a href="../../home/Find_doctors/fincdoc.html" class="hosp-card">
+                    <div class="hosp-logo-wrap">
+                        <img src="vims.jpg" alt="VIMS Hospitals">
+                    </div>
+                    <div class="hosp-info">
+                        <span class="hosp-badge">Medical Sciences Institute</span>
+                        <h3>VIMS Hospitals</h3>
+                        <p class="hosp-meta">📍 Main Institute Medical Campus</p>
+                    </div>
+                    <span class="hosp-arrow">→</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- AVAILABILITY TABLE SECTION -->
+        <section class="content-section">
+            <div class="section-heading">
+                <div>
+                    <span class="section-kicker">NETWORK STATS</span>
+                    <h2>Hospital Network & Availability Overview</h2>
+                    <p>Comprehensive branch distribution and medical practitioner capacity.</p>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table class="modern-hosp-table">
+                    <thead>
+                        <tr>
+                            <th>🏥 Hospital Network</th>
+                            <th>🏢 Infrastructure & Branches</th>
+                            <th>👨‍⚕️ Available Doctors</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Apollo Hospitals</strong></td>
+                            <td><span class="badge-pill branch-pill">75 Major Hospitals • 520 Clinics</span></td>
+                            <td><span class="badge-pill doc-pill">11,000+ Specialists</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>CARE Hospitals</strong></td>
+                            <td><span class="badge-pill branch-pill">16 Multi-Specialty Hospitals in 7 Cities</span></td>
+                            <td><span class="badge-pill doc-pill">1,400+ Clinicians</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>KGH Hospitals</strong></td>
+                            <td><span class="badge-pill branch-pill">1 Main Tertiary Teaching Campus</span></td>
+                            <td><span class="badge-pill doc-pill">350+ Senior Consultants</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>KIMS Hospitals</strong></td>
+                            <td><span class="badge-pill branch-pill">27 Multi-Specialty Hospitals</span></td>
+                            <td><span class="badge-pill doc-pill">2,000+ Medical Experts</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Medicover Hospitals</strong></td>
+                            <td><span class="badge-pill branch-pill">26 Multi-Specialty Facilities</span></td>
+                            <td><span class="badge-pill doc-pill">1,000+ Doctors</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Omega Hospitals</strong></td>
+                            <td><span class="badge-pill branch-pill">6 Specialized Oncology Centers</span></td>
+                            <td><span class="badge-pill doc-pill">180+ Oncologists</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Queens Hospitals</strong></td>
+                            <td><span class="badge-pill branch-pill">2 Regional Hospital Branches</span></td>
+                            <td><span class="badge-pill doc-pill">60+ Doctors</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Seven-Hills Hospitals</strong></td>
+                            <td><span class="badge-pill branch-pill">2 Major Hospital Campuses</span></td>
+                            <td><span class="badge-pill doc-pill">300+ Consultants</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>VIMS Hospitals</strong></td>
+                            <td><span class="badge-pill branch-pill">1 Main Institute Campus</span></td>
+                            <td><span class="badge-pill doc-pill">75+ Specialist Doctors</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="footer">
+            <div>
+                <div class="footer-brand">✚ Care<span>Connect</span></div>
+                <p>Making healthcare a little easier, one visit at a time.</p>
+            </div>
+            <div class="footer-contact">
+                <a href="mailto:Thilak@gmail.com">✉ Thilak@gmail.com</a>
+                <a href="tel:+919849979264">☎ +91 9849979264</a>
+            </div>
+        </footer>
+    </main>
+</body>
+</html>

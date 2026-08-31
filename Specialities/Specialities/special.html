@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Specialties | MediQ</title>
+    <link rel="icon" type="image/x-icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="special.css">
+    <link rel="stylesheet" href="../../sidebar/sidebar.css">
+    <script src="../../theme.js"></script>
+</head>
+<script>
+    fetch("../../sidebar/sidebar.html")
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById("sidebar-container").innerHTML = data;
+
+            // Set active page AFTER sidebar loads
+            setActivePage();
+        })
+        .catch(error => console.error("Sidebar loading error:", error));
+</script>
+
+<script src="../../sidebar/sidebar.js"></script>
+<body>
+    <div id="sidebar-container"></div>
+
+    <main class="page-content" id="specialties-page">
+        <!-- TOPBAR -->
+        <header class="topbar">
+            <div class="brand">
+                <img src="../../sidebar/logoMQ.png" alt="MediQ" class="brand-logo">
+                <span>Medi<span>Q</span></span>
+            </div>
+            <div class="top-actions">
+                <span class="welcome">Explore certified medical domains</span>
+                <a href="../../home/Find_doctors/fincdoc.html" class="top-action-btn">Find Doctors <span>→</span></a>
+            </div>
+        </header>
+
+        <!-- HERO SECTION -->
+        <section class="special-hero">
+            <div class="special-hero-content">
+                <div class="eyebrow"><span></span> SPECIALIZED CARE</div>
+                <h1>
+                    Expert Care,<br>
+                    <em>Tailored to You.</em>
+                </h1>
+                <p>
+                    From everyday wellness to advanced surgical disciplines, discover dedicated specialists equipped with deep expertise for your unique health needs.
+                </p>
+
+                <div class="trust-row">
+                    <div><strong>✓</strong> 15+ Medical Disciplines</div>
+                    <div><strong>✓</strong> Verified Specialists</div>
+                    <div><strong>✓</strong> Direct Booking</div>
+                </div>
+            </div>
+            <div class="hero-stat-badge">
+                <span class="badge-num">15+</span>
+                <span class="badge-label">Clinical Specialties Available</span>
+            </div>
+        </section>
+
+        <!-- SPECIALTIES GRID -->
+        <section class="content-section">
+            <div class="section-heading">
+                <div>
+                    <span class="section-kicker">BROWSE DISCIPLINES</span>
+                    <h2>Explore Medical Specialties</h2>
+                    <p>Select a field of medicine to connect with top practitioners.</p>
+                </div>
+            </div>
+
+            <div class="specialties-grid">
+                <!-- 1. General Physician -->
+                <a href="../../home/Find_doctors/fincdoc.html" class="spec-card">
+                    <div class="spec-icon-box">
+                        <img src="https://cdn-icons-png.flaticon.com/512/387/387561.png" alt="General Physician">
+                    </div>
+                    <div class="spec-info">
+                        <h3>General Physician</h3>
+                        <p>Comprehensive primary care, preventative health, and diagnosis.</p>
+                    </div>
+                    <span class="spec-arrow">→</span>
+                </a>
+
+                <!-- 2. Dermatology -->
+                <a href="../../home/Find_doctors/fincdoc.html" class="spec-card">
+                    <div class="spec-icon-box">
+                        <img src="derma.png" alt="Dermatology">
+                    </div>
+                    <div class="spec-info">
+                        <h3>Dermatology</h3>
+                        <p>Skin conditions, acne therapies, hair, scalp, and nail treatments.</p>
+                    </div>
+                    <span class="spec-arrow">→</span>
+                </a>
+
+                <!-- 3. Cardiology -->
+                <a href="../../home/Find_doctors/fincdoc.html" class="spec-card">
+                    <div class="spec-icon-box">
+                        <img src="cardiology.png" alt="Cardiology">
+                    </div>
+                    <div class="spec-info">
+                        <h3>Cardiology</h3>
+                        <p>Heart health, cardiovascular screening, hypertension, and ECG.</p>
+                    </div>
+                    <span class="spec-arrow">→</span>
+                </a>
+
+                <!-- 4. Orthopedics -->
+                <a href="../../home/Find_doctors/fincdoc.html" class="spec-card">
+                    <div class="spec-icon-box">
+                        <img src="ortho.png" alt="Orthopedic">
+                    </div>
+                    <div class="spec-info">
+                        <h3>Orthopedics</h3>
+                        <p>Bone, joint mobility, sports injuries, fractures, and spinal care.</p>
+                    </div>
+                    <span class="spec-arrow">→</span>
+                </a>
+
+                <!-- 5. Pediatrics -->
+                <a href="../../home/Find_doctors/fincdoc.html" class="spec-card">
+                    <div class="spec-icon-box">
+                        <img src="pedia.png" alt="Pediatrician">
+                    </div>
+                    <div class="spec-info">
+                        <h3>Pediatrics</h3>
+                        <p>Infant, child, and adolescent wellness, nutrition, and vaccination.</p>
+                    </div>
+                    <span class="spec-arrow">→</span>
+                </a>
+
+                <!-- 6. Psychiatry -->
+                <a href="../../home/Find_doctors/fincdoc.html" class="spec-card">
+                    <div class="spec-icon-box">
+                        <img src="ph.png" alt="Psychiatrist">
+                    </div>
+                    <div class="spec-info">
+                        <h3>Psychiatry</h3>
+                        <p>Mental health wellness, therapy, cognitive care, and anxiety support.</p>
+                    </div>
+                    <span class="spec-arrow">→</span>
+                </a>
+
+                <!-- 7. Neurology -->
+                <a href="../../home/Find_doctors/fincdoc.html" class="spec-card">
+                    <div class="spec-icon-box">
+                        <img src="neuro.png" alt="Neurology">
+                    </div>
+                    <div class="spec-info">
+                        <h3>Neurology</h3>
+                        <p>Brain disorders, nerve health, migraines, and cognitive therapies.</p>
+                    </div>
+                    <span class="spec-arrow">→</span>
+                </a>
+
+                <!-- 8. Dentistry -->
+                <a href="../../home/Find_doctors/fincdoc.html" class="spec-card">
+                    <div class="spec-icon-box emoji-box">
+                        <span>🦷</span>
+                    </div>
+                    <div class="spec-info">
+                        <h3>Dentistry</h3>
+                        <p>Oral hygiene, root canals, cosmetic dentistry, and orthodontic care.</p>
+                    </div>
+                    <span class="spec-arrow">→</span>
+                </a>
+
+                <!-- 9. Gynecology -->
+                <a href="../../home/Find_doctors/fincdoc.html" class="spec-card">
+                    <div class="spec-icon-box emoji-box">
+                        <span>🌸</span>
+                    </div>
+                    <div class="spec-info">
+                        <h3>Gynecology & Obstetrics</h3>
+                        <p>Women's reproductive health, maternity, and prenatal care.</p>
+                    </div>
+                    <span class="spec-arrow">→</span>
+                </a>
+
+                <!-- 10. Gastroenterology -->
+                <a href="../../home/Find_doctors/fincdoc.html" class="spec-card">
+                    <div class="spec-icon-box emoji-box">
+                        <span>🩺</span>
+                    </div>
+                    <div class="spec-info">
+                        <h3>Gastroenterology</h3>
+                        <p>Digestive system health, liver disorders, endoscopy, and gut wellness.</p>
+                    </div>
+                    <span class="spec-arrow">→</span>
+                </a>
+
+                <!-- 11. Pulmonology -->
+                <a href="../../home/Find_doctors/fincdoc.html" class="spec-card">
+                    <div class="spec-icon-box emoji-box">
+                        <span>🫁</span>
+                    </div>
+                    <div class="spec-info">
+                        <h3>Pulmonology</h3>
+                        <p>Respiratory health, asthma management, allergies, and lung diagnostics.</p>
+                    </div>
+                    <span class="spec-arrow">→</span>
+                </a>
+
+                <!-- 12. Nephrology -->
+                <a href="../../home/Find_doctors/fincdoc.html" class="spec-card">
+                    <div class="spec-icon-box emoji-box">
+                        <span>💧</span>
+                    </div>
+                    <div class="spec-info">
+                        <h3>Nephrology</h3>
+                        <p>Kidney function care, dialysis management, and renal health.</p>
+                    </div>
+                    <span class="spec-arrow">→</span>
+                </a>
+
+                <!-- 13. Endocrinology -->
+                <a href="../../home/Find_doctors/fincdoc.html" class="spec-card">
+                    <div class="spec-icon-box emoji-box">
+                        <span>🧬</span>
+                    </div>
+                    <div class="spec-info">
+                        <h3>Endocrinology</h3>
+                        <p>Hormonal balance, thyroid conditions, metabolism, and diabetes care.</p>
+                    </div>
+                    <span class="spec-arrow">→</span>
+                </a>
+
+                <!-- 14. Radiology -->
+                <a href="../../home/Find_doctors/fincdoc.html" class="spec-card">
+                    <div class="spec-icon-box emoji-box">
+                        <span>🩻</span>
+                    </div>
+                    <div class="spec-info">
+                        <h3>Radiology</h3>
+                        <p>Diagnostic imaging, MRI, CT scans, ultrasounds, and X-ray analysis.</p>
+                    </div>
+                    <span class="spec-arrow">→</span>
+                </a>
+
+                <!-- 15. Oncology -->
+                <a href="../../home/Find_doctors/fincdoc.html" class="spec-card">
+                    <div class="spec-icon-box emoji-box">
+                        <span>🎗️</span>
+                    </div>
+                    <div class="spec-info">
+                        <h3>Oncology</h3>
+                        <p>Comprehensive cancer therapies, early screenings, and immunotherapy.</p>
+                    </div>
+                    <span class="spec-arrow">→</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- WHY SPECIALIZATION MATTERS SECTION -->
+        <section class="about-section">
+            <div class="about-copy">
+                <span class="section-kicker">CLINICAL EXCELLENCE</span>
+                <h2>Why Specialized Medicine Makes the Difference.</h2>
+                <p>
+                    With over 37 trillion cells and dozens of intricate organ systems, specialized medicine brings ultra-focused experts to precision plays—transforming tricky diagnostic mysteries into predictable, effective treatments.
+                </p>
+                <div class="feature-list">
+                    <div>
+                        <span>01</span>
+                        <p><strong>Targeted Precision:</strong> Specialists dedicate their clinical focus to deep mastery of one domain.</p>
+                    </div>
+                    <div>
+                        <span>02</span>
+                        <p><strong>Faster Diagnoses:</strong> Direct access to expert evaluation reduces unnecessary trial-and-error.</p>
+                    </div>
+                    <div>
+                        <span>03</span>
+                        <p><strong>Advanced Treatments:</strong> Benefit from the latest state-of-the-art procedures and equipment.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="about-visual">
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&w=900&q=85" alt="Medical team in consultation">
+                </div>
+                <div class="about-badge">
+                    <strong>Precision Care,</strong><br>better outcomes.
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="footer">
+            <div>
+                <div class="footer-brand">
+                    <img src="../../sidebar/logoMQ.png" alt="MediQ" class="brand-logo">
+                    <span>Medi<span>Q</span></span>
+                </div>
+                <p>Making healthcare a little easier, one visit at a time.</p>
+            </div>
+            <div class="footer-contact">
+                <a href="mailto:Thilak@gmail.com">✉ Thilak@gmail.com</a>
+                <a href="tel:+919849979264">☎ +91 9849979264</a>
+            </div>
+        </footer>
+    </main>
+</body>
+</html>

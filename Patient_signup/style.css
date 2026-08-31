@@ -1,0 +1,226 @@
+@font-face {
+    font-family: "font";
+    src: url("font.ttf") format("truetype");
+}
+html,body{
+    overflow: hidden;
+}
+body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    min-height: 100vh;
+    background-image: url(patient.png);
+    font-family: "font";
+    background-position: center;
+    transition: all ease 0.25s;
+}
+#signup-sec{
+    background-color: #B5DCFF;
+    margin: 0;
+    padding-right: 50px;
+    padding-left: 50px;
+    padding-top: 20px;
+    padding-bottom: 50px;
+    border-radius: 20px;
+    box-shadow: 5px 5px 50px 1px rgba(0, 0, 0, 0.352);
+    
+    
+}
+.input{
+    padding: 5px;
+}
+.input{
+    position: relative;
+    border-radius: 50px;
+    height: 50px;
+    width: 220px;
+    border: solid rgba(128, 128, 128, 0.333) 1px;
+    font-size: 15px;
+    margin-bottom: -15px;
+    background-color: #9DB5CB;
+    box-sizing: border-box;
+    padding-left: 25px;
+    transition: ease 0.25s;
+    font-family: "font";
+    margin-top: 30px;
+    margin-right: 15px;
+    
+}
+.input:focus{
+    outline: none;
+    scale:1.09;
+    box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.336);
+
+}
+#signup-sec h2 {
+    margin-bottom: 8px;
+}
+.select{
+    position: relative;
+    display: inline;
+}
+
+.select select{
+    appearance: none;
+    -webkit-appearance: none;
+    padding-right: 30px;
+}
+
+.arrow{
+    position: absolute;
+    left: 85px;
+    width: 40px;
+    top: -9.5px;
+    transform: rotate(0deg);
+    transition: transform 0.25s ease;
+    cursor: pointer;
+}
+
+#terms {
+
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #555;
+    border-radius: 20px;
+    cursor: pointer;
+}
+#terms:checked {
+    background-image: url("Check.png");
+    background-size: 20px;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.terms-text {
+    position: relative;
+    top: -7px;
+    text-align: center;
+    justify-content: center;
+
+}
+#submit{
+    text-align: center;
+    justify-items: center;
+    margin-top: 15px;
+    margin-left: 250px;
+    padding: 15px;
+    width: 120px;
+    border-radius: 30px;
+    background-color: #35AB68;
+    color: white;
+    font-size: 20px;
+    border: none;
+    transition: all ease 0.25s;
+    cursor: pointer;
+    font-family: "font";
+    font-weight: bold;
+}
+#submit:hover{
+    scale: 1.1;
+    box-shadow: 5px 5px 30px 1px rgba(0, 0, 0, 0.321);
+}
+#submit:active{
+    scale: 0.99;
+    box-shadow: none;
+}
+
+#signup-sec {
+    animation: slidePop 0.8s ease-out;
+}
+
+@keyframes slidePop {
+    0% {
+        opacity: 1;
+        transform: translateY(100vh) scale(0.95);
+    }
+
+    80% {
+        transform: translateY(-10px) scale(1.01);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+#login{
+    background-color: #FF9800;
+    border-radius: 30px;
+    border: none;
+    padding: 3px;
+    width: 180px;
+    font-family: "font";
+    margin-left: 220px;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+#login:hover{
+    background-color: #de8500;
+}
+
+@media (max-width: 600px) {
+    html,
+    body {
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
+    body {
+        display: block;
+        padding: 20px 12px;
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+
+    #signup-sec {
+        width: 100%;
+        max-width: 420px;
+        margin: 0 auto;
+        padding: 24px 20px 30px;
+    }
+
+    #signup-sec h2 {
+        font-size: 26px !important;
+        text-align: center;
+    }
+
+    .input,
+    #dob,
+    .select .input {
+        display: block;
+        width: 100% !important;
+        margin: 16px 0 0;
+    }
+
+    .select {
+        display: block;
+        position: relative;
+        width: 100%;
+    }
+
+    .arrow {
+        left: auto;
+        right: 12px;
+        top: 21px;
+    }
+
+    #terms {
+        margin-top: 24px;
+    }
+
+    .terms-text {
+        top: 0;
+        font-size: 14px;
+    }
+
+    #submit,
+    #login {
+        display: block;
+        width: 100%;
+        margin: 20px 0 0;
+    }
+}

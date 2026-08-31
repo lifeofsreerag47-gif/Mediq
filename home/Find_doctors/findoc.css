@@ -1,0 +1,1083 @@
+@font-face {
+    font-family: "font";
+    src: url("font.ttf") format("truetype");
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "font";
+    background: #E3FFF5;
+}
+
+
+/* =========================
+   MAIN PAGE
+========================= */
+
+
+/*Slideshow starts here*/
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+/* =========================
+   TOP SECTION
+========================= */
+
+.top-section {
+    height: 80px;
+    background: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 40px;
+
+    border-bottom: 1px solid #ddd;
+}
+
+.top-section h1 {
+    font-size: 28px;
+    color: #1d3557;
+}
+
+.top-section button {
+    padding: 10px 22px;
+    border: none;
+    border-radius: 8px;
+
+    background: #1d3557;
+    color: white;
+
+    font-size: 15px;
+    cursor: pointer;
+}
+
+
+/* =========================
+   CONTENT
+========================= */
+
+.content {
+    display: flex;
+    gap: 30px;
+
+    padding: 30px 40px;
+}
+
+
+/* =========================
+   FILTER PANEL
+========================= */
+
+.filter-panel {
+    width: 260px;
+    min-width: 260px;
+
+    background: white;
+
+    padding: 22px;
+
+    border-radius: 12px;
+
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+
+    height: fit-content;
+}
+
+
+.filter-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 25px;
+}
+
+.filter-header h2 {
+    font-size: 20px;
+    color: #1d3557;
+}
+
+.filter-header span {
+    font-size: 13px;
+    color: #2878c8;
+    cursor: pointer;
+}
+
+
+.filter-section h3 {
+    margin-bottom: 12px;
+    color: #333;
+}
+
+
+.filter-section > input {
+    width: 100%;
+
+    padding: 11px;
+
+    border: 1px solid #ddd;
+    border-radius: 7px;
+
+    margin-bottom: 15px;
+}
+
+
+.filter-section label {
+    display: block;
+
+    margin: 14px 0;
+
+    font-size: 14px;
+    color: #444;
+
+    cursor: pointer;
+}
+
+
+.filter-section label input {
+    margin-right: 8px;
+}
+
+
+/* =========================
+   DOCTOR AREA
+========================= */
+
+.doctor-area {
+    flex: 1;
+    min-width: 0;
+}
+
+
+.doctor-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 25px;
+}
+
+
+.doctor-top h1 {
+    font-size: 25px;
+    color: #1d3557;
+}
+
+
+.doctor-top p {
+    margin-top: 7px;
+    color: #777;
+}
+
+
+/* =========================
+   SEARCH
+========================= */
+
+.search-doctor {
+    display: flex;
+    align-items: center;
+}
+
+
+.search-doctor input {
+    width: 260px;
+
+    padding: 12px 15px;
+
+    border: 1px solid #ddd;
+    border-radius: 8px 0 0 8px;
+
+    outline: none;
+}
+
+
+.search-doctor button {
+    padding: 12px 16px;
+
+    border: none;
+
+    background: #1d3557;
+    color: white;
+
+    border-radius: 0 8px 8px 0;
+
+    cursor: pointer;
+}
+
+
+/* =========================
+   DOCTOR CARDS CONTAINER
+========================= */
+
+.doctor-cards {
+    display: grid;
+
+    grid-template-columns: repeat(3, minmax(250px, 1fr));
+
+    gap: 25px;
+
+    width: 100%;
+
+}
+
+
+/* =========================
+   DOCTOR CARD
+========================= */
+
+.doctor-card {
+    background: white;
+
+    border-radius: 15px;
+
+    padding: 22px;
+
+    min-height: 340px;
+
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+
+    transition: 0.3s;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+
+    text-align: center;
+}
+
+
+.doctor-card:hover {
+    transform: translateY(-5px);
+
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+
+/* =========================
+   DOCTOR IMAGE
+========================= */
+
+.doctor-image {
+    width: 120px;
+    height: 120px;
+
+    border-radius: 50%;
+
+    overflow: hidden;
+
+    margin-bottom: 15px;
+}
+
+
+.doctor-image img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+
+/* =========================
+   DOCTOR DETAILS
+========================= */
+
+.doctor-details {
+    width: 100%;
+}
+
+
+.doctor-details h2 {
+    font-size: 18px;
+
+    color: #1d3557;
+
+    margin-bottom: 8px;
+}
+
+
+.speciality {
+    color: #2878c8;
+
+    font-weight: bold;
+
+    margin-bottom: 7px;
+}
+
+
+.experience {
+    color: #666;
+
+    font-size: 14px;
+}
+
+
+.doctor-details hr {
+    margin: 15px 0;
+
+    border: none;
+
+    border-top: 1px solid #eee;
+}
+
+
+.hospital {
+    font-size: 13px;
+
+    color: #666;
+}
+
+
+/* =========================
+   DOCTOR BUTTONS
+========================= */
+
+.doctor-actions {
+    display: flex;
+
+    gap: 10px;
+
+    width: 100%;
+
+    margin-top: auto;
+}
+
+
+.doctor-actions button {
+    flex: 1;
+
+    padding: 11px 8px;
+
+    border-radius: 7px;
+
+    cursor: pointer;
+
+    font-size: 13px;
+}
+
+
+/* Update button styles inside doctor-actions */
+.doctor-actions button {
+    flex: 1;
+    padding: 11px 8px;
+    border-radius: 50px; /* Set border radius here */
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    outline: none;
+    margin-top: 20px;
+}
+
+.book-btn {
+    background: #84B0CF;
+    color: white;
+    border: none; /* Matches height with call-btn */
+    border-radius: 8px;
+    font-family: "font";
+}
+
+.book-btn:hover{
+    scale: 1.05;
+}
+
+.call-btn {
+    background: #35AB68;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-family: "font";
+}
+
+.call-btn:hover{
+    scale: 1.05;
+    background: #46e28a;
+}
+
+.book-btn:hover {
+    background: #2878c8;
+    border-color: #2878c8;
+}
+
+
+
+/* =========================
+   SPECIALIST CARDS
+========================= */
+
+.doctor-icon {
+    width: 80px;
+    height: 80px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 42px;
+
+    background: #eef5ff;
+
+    border-radius: 50%;
+
+    margin-top: 15px;
+
+    margin-bottom: 20px;
+}
+
+
+.doctor-card h3 {
+    font-size: 20px;
+
+    color: #1d3557;
+
+    margin-bottom: 12px;
+}
+
+
+.doctor-card > p {
+    font-size: 14px;
+
+    color: #777;
+
+    line-height: 1.5;
+
+    margin-bottom: 20px;
+}
+
+
+.doctor-card > button {
+    margin-top: auto;
+
+    width: 100%;
+
+    padding: 11px;
+
+    border: none;
+
+    border-radius: 7px;
+
+    background: #1d3557;
+
+    color: white;
+
+    font-size: 14px;
+
+    cursor: pointer;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1100px) {
+
+    .doctor-cards {
+        grid-template-columns: repeat(2, minmax(250px, 1fr));
+    }
+
+}
+
+
+@media (max-width: 800px) {
+
+    .top-section {
+        height: auto;
+        min-height: 72px;
+        padding: 16px;
+    }
+
+    .content {
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px 16px;
+    }
+
+    .filter-panel {
+        width: 100%;
+    }
+
+    .doctor-top {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    .search-doctor {
+        width: 100%;
+    }
+
+    .search-doctor input {
+        width: 100%;
+    }
+
+}
+
+
+.check {
+    transform: translateY(5px);
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #555;
+    border-radius: 20px;
+    cursor: pointer;
+}
+.check:checked {
+    background-image: url("Check.png");
+    background-size: 20px;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.searchbar{
+    transition: all 0.25s ease;
+}
+.searchbar:focus{
+    box-shadow: 1px 1px 30px 1px rgba(0, 0, 0, 0.142);
+}
+@media (max-width: 550px) {
+
+    .doctor-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .content {
+        padding: 20px 16px;
+    }
+
+    .top-section {
+        padding: 16px;
+    }
+
+}
+
+/* =========================
+   DARK MODE 🌙
+========================= */
+
+html.dark-mode body,
+body.dark-mode {
+    background: #0d1720 !important;
+    color: #eaf3f8 !important;
+}
+
+html.dark-mode .top-section,
+body.dark-mode .top-section {
+    background: #152530 !important;
+    border-bottom-color: #243a4a !important;
+}
+
+html.dark-mode .top-section h1,
+body.dark-mode .top-section h1 {
+    color: #ffffff !important;
+}
+
+html.dark-mode .filter-panel,
+body.dark-mode .filter-panel {
+    background: #152530 !important;
+    border: 1px solid #243a4a !important;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25) !important;
+}
+
+html.dark-mode .filter-header h2,
+body.dark-mode .filter-header h2 {
+    color: #ffffff !important;
+}
+
+html.dark-mode .filter-header span,
+body.dark-mode .filter-header span {
+    color: #8ecbff !important;
+}
+
+html.dark-mode .filter-section h3,
+body.dark-mode .filter-section h3 {
+    color: #8ecbff !important;
+}
+
+html.dark-mode .filter-section label,
+body.dark-mode .filter-section label {
+    color: #aebfc9 !important;
+}
+
+html.dark-mode .doctor-top h1,
+body.dark-mode .doctor-top h1 {
+    color: #ffffff !important;
+}
+
+html.dark-mode .doctor-top p,
+body.dark-mode .doctor-top p {
+    color: #aebfc9 !important;
+}
+
+html.dark-mode .searchbar,
+body.dark-mode .searchbar {
+    background: #1c3040 !important;
+    color: #ffffff !important;
+    border-color: #2b4559 !important;
+}
+
+html.dark-mode .search-doctor button,
+body.dark-mode .search-doctor button {
+    background: #4d91c5 !important;
+}
+
+html.dark-mode .doctor-card,
+body.dark-mode .doctor-card {
+    background: #152530 !important;
+    border: 1px solid #243a4a !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25) !important;
+}
+
+html.dark-mode .doctor-card:hover,
+body.dark-mode .doctor-card:hover {
+    border-color: #406c8a !important;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35) !important;
+}
+
+html.dark-mode .doctor-details h2,
+body.dark-mode .doctor-details h2 {
+    color: #ffffff !important;
+}
+
+html.dark-mode .speciality,
+body.dark-mode .speciality {
+    color: #8ecbff !important;
+}
+
+html.dark-mode .experience,
+body.dark-mode .experience {
+    color: #aebfc9 !important;
+}
+
+html.dark-mode .doctor-details hr,
+body.dark-mode .doctor-details hr {
+    border-top-color: #243a4a !important;
+}
+
+html.dark-mode .hospital,
+body.dark-mode .hospital {
+    color: #8fa5b5 !important;
+}
+
+html.dark-mode .call-btn,
+body.dark-mode .call-btn {
+    background: #1a2b38 !important;
+    color: #8ecbff !important;
+    border-color: #3b5a73 !important;
+}
+
+html.dark-mode .book-btn,
+body.dark-mode .book-btn {
+    background: #4d91c5 !important;
+    color: #ffffff !important;
+}
+
+/* ========================================================
+   WAITING TIME BADGE ON DOCTOR CARD ⏱️
+======================================================== */
+.card-wait-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #E3FFF5;
+    color: #1d3557;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    margin: 8px 0;
+    border: 1px solid #b7ecd9;
+}
+.card-wait-badge.busy {
+    background: #fff3e0;
+    color: #b75500;
+    border-color: #ffd8a8;
+}
+.doctor-availability {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin: 2px 0 4px;
+    font-size: 12px;
+    font-weight: 600;
+}
+.doctor-availability.on-duty { color: #15803d; }
+.doctor-availability.offline { color: #b45309; }
+html.dark-mode .card-wait-badge {
+    background: #19332b !important;
+    color: #8ce9c8 !important;
+    border-color: #275245 !important;
+}
+html.dark-mode .card-wait-badge.busy {
+    background: #332515 !important;
+    color: #ffb86c !important;
+    border-color: #5e3f1e !important;
+}
+
+/* ========================================================
+   BOOKING MODAL 📅
+======================================================== */
+.booking-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 25, 35, 0.55);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+.booking-overlay.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+.booking-modal {
+    width: min(560px, 94vw);
+    max-height: 90vh;
+    overflow-y: auto;
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 30px;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.3);
+    transform: scale(0.9) translateY(20px);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+}
+.booking-overlay.show .booking-modal {
+    transform: scale(1) translateY(0);
+}
+.modal-close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: none;
+    background: #f1f5f9;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+.modal-close-btn:hover {
+    background: #e2e8f0;
+    transform: rotate(90deg);
+}
+
+.booking-header {
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #edf2f7;
+}
+.booking-header h2 {
+    color: #1d3557;
+    font-size: 22px;
+    margin-bottom: 4px;
+}
+.booking-header p {
+    color: #64748b;
+    font-size: 14px;
+}
+
+.booking-field {
+    margin-bottom: 20px;
+}
+.booking-field label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #334155;
+    margin-bottom: 8px;
+}
+.booking-field input[type="date"] {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 12px;
+    font-family: "font", sans-serif;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+.booking-field input[type="date"]:focus {
+    border-color: #2878c8;
+    box-shadow: 0 0 0 3px rgba(40, 120, 200, 0.15);
+}
+
+/* Time slot buttons */
+.slots-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 10px;
+}
+.slot-btn {
+    padding: 10px 8px;
+    background: #f8fafc;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 12px;
+    font-family: "font", sans-serif;
+    font-size: 12px;
+    color: #334155;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+}
+.slot-btn:hover {
+    background: #eff6ff;
+    border-color: #93c5fd;
+    color: #1d4ed8;
+}
+.slot-btn.selected {
+    background: #2878c8 !important;
+    border-color: #2878c8 !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 12px rgba(40, 120, 200, 0.3);
+}
+
+/* Notes Textarea */
+.notes-textarea {
+    width: 100%;
+    min-height: 80px;
+    padding: 12px 16px;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 12px;
+    font-family: "font", sans-serif;
+    font-size: 13px;
+    resize: vertical;
+    outline: none;
+}
+.notes-textarea:focus {
+    border-color: #2878c8;
+    box-shadow: 0 0 0 3px rgba(40, 120, 200, 0.15);
+}
+.word-count-hint {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #64748b;
+    margin-top: 4px;
+}
+.word-count-hint.limit-exceeded {
+    color: #dc2626;
+    font-weight: bold;
+}
+
+.booking-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 25px;
+}
+.booking-confirm-btn {
+    flex: 1;
+    padding: 14px;
+    background: #35AB68;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-family: "font", sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+.booking-confirm-btn:hover {
+    background: #2d9359;
+    transform: scale(1.02);
+    box-shadow: 0 4px 15px rgba(53, 171, 104, 0.35);
+}
+
+/* ========================================================
+   DIGITAL TICKET PASS POPUP (Movie-Ticket Style) 🎫
+======================================================== */
+.ticket-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 25, 35, 0.65);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10001;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+.ticket-overlay.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+.ticket-modal {
+    width: min(440px, 92vw);
+    background: #ffffff;
+    border-radius: 24px;
+    box-shadow: 0 25px 70px rgba(0,0,0,0.35);
+    overflow: hidden;
+    position: relative;
+    transform: scale(0.85) translateY(20px);
+    transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 2px solid #B5DCFF;
+}
+.ticket-overlay.show .ticket-modal {
+    transform: scale(1) translateY(0);
+}
+.ticket-top {
+    background: linear-gradient(135deg, #1d3557 0%, #31568f 100%);
+    color: white;
+    padding: 24px 24px 18px 24px;
+    text-align: center;
+    position: relative;
+}
+.ticket-brand {
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #93c5fd;
+    margin-bottom: 6px;
+}
+.ticket-top h2 {
+    font-size: 20px;
+    margin: 0;
+}
+.ticket-pass-badge {
+    display: inline-block;
+    background: #35AB68;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: bold;
+    margin-top: 10px;
+    letter-spacing: 1px;
+}
+.ticket-divider-wrap {
+    position: relative;
+    height: 24px;
+    background: #ffffff;
+}
+.ticket-notch-left, .ticket-notch-right {
+    position: absolute;
+    top: -12px;
+    width: 24px;
+    height: 24px;
+    background: rgba(15, 25, 35, 0.65);
+    border-radius: 50%;
+}
+.ticket-notch-left { left: -12px; }
+.ticket-notch-right { right: -12px; }
+.ticket-dashed-line {
+    border-top: 2px dashed #cbd5e1;
+    margin-top: 11px;
+    width: 100%;
+}
+.ticket-body {
+    padding: 10px 24px 24px 24px;
+    background: #ffffff;
+}
+.ticket-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 18px;
+}
+.ticket-info-item span {
+    display: block;
+    font-size: 11px;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 3px;
+}
+.ticket-info-item strong {
+    display: block;
+    font-size: 14px;
+    color: #1d3557;
+    word-break: break-word;
+}
+.ticket-qr-container {
+    background: #f8fafc;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 18px;
+}
+#ticketQrCode {
+    width: 232px;
+    height: 232px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff !important;
+    padding: 6px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+}
+#ticketQrCode canvas, #ticketQrCode img {
+    width: 220px !important;
+    height: 220px !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    display: block;
+    image-rendering: pixelated;
+}
+.ticket-qr-hint {
+    font-size: 11px;
+    color: #64748b;
+    margin-top: 8px;
+    text-align: center;
+}
+.ticket-actions {
+    display: flex;
+    gap: 10px;
+}
+.ticket-btn-primary {
+    flex: 1;
+    padding: 12px;
+    background: #1d3557;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-family: "font", sans-serif;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.ticket-btn-primary:hover {
+    background: #2878c8;
+}
+.ticket-btn-secondary {
+    padding: 12px 18px;
+    background: #f1f5f9;
+    color: #334155;
+    border: none;
+    border-radius: 50px;
+    font-family: "font", sans-serif;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.ticket-btn-secondary:hover {
+    background: #e2e8f0;
+}

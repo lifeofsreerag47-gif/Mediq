@@ -1,0 +1,354 @@
+@font-face {
+    font-family: "font";
+    src: url("../home/font.ttf") format("truetype");
+}
+
+:root {
+    --bg: #f3f8fc;
+    --card: #ffffff;
+    --text: #18334a;
+    --muted: #6c7d8b;
+    --blue: #4d91c5;
+    --line: #dce8f0;
+    --soft-blue: #eaf4fa;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    font-family: "font", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    margin-left: 80px;
+    transition: background 0.35s ease, color 0.35s ease;
+}
+
+/* =========================
+   SETTINGS PAGE
+========================= */
+
+.settings-container {
+    width: min(720px, calc(100% - 40px));
+    margin: 0 auto;
+    padding: 70px 0;
+}
+
+.settings-header {
+    margin-bottom: 35px;
+}
+
+.back-btn {
+    display: inline-block;
+    color: var(--blue);
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 28px;
+    transition: transform 0.2s ease;
+}
+
+.back-btn:hover {
+    transform: translateX(-4px);
+}
+
+.eyebrow {
+    color: var(--blue);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+}
+
+.settings-header h1 {
+    font-size: 48px;
+    margin: 8px 0;
+    letter-spacing: -2px;
+}
+
+.settings-header p {
+    color: var(--muted);
+    font-size: 16px;
+}
+
+
+/* =========================
+   SETTINGS CARD
+========================= */
+
+.settings-card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    padding: 25px;
+    margin-bottom: 18px;
+    box-shadow: 0 10px 30px rgba(30, 70, 100, 0.05);
+    transition: background 0.35s ease, border 0.35s ease;
+}
+
+.setting-title {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 22px;
+}
+
+.setting-icon {
+    width: 48px;
+    height: 48px;
+    display: grid;
+    place-items: center;
+    background: var(--soft-blue);
+    border-radius: 15px;
+    font-size: 22px;
+}
+
+.setting-title h2 {
+    font-size: 18px;
+}
+
+.setting-title p {
+    color: var(--muted);
+    font-size: 13px;
+    margin-top: 3px;
+}
+
+
+/* =========================
+   THEME SWITCH (DYNAMIC)
+========================= */
+
+.theme-switch-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 22px;
+    background: var(--soft-blue);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    gap: 20px;
+    transition: background 0.35s ease, border-color 0.35s ease;
+}
+
+.theme-switch-info {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.theme-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--text);
+}
+
+.theme-badge-icon {
+    font-size: 20px;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.theme-switch-desc {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+/* Dynamic Toggle Switch UI */
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 78px;
+    height: 42px;
+    flex-shrink: 0;
+    cursor: pointer;
+    user-select: none;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    position: absolute;
+}
+
+.toggle-slider {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #e3f0fb, #cde3f7);
+    border: 2px solid var(--line);
+    border-radius: 50px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+    overflow: hidden;
+}
+
+.toggle-icon {
+    font-size: 15px;
+    z-index: 1;
+    transition: opacity 0.3s ease, transform 0.4s ease;
+}
+
+.sun-icon {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.moon-icon {
+    opacity: 0.35;
+    transform: scale(0.85);
+}
+
+.toggle-knob {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 30px;
+    height: 30px;
+    background: #ffffff;
+    border-radius: 50%;
+    box-shadow: 0 4px 10px rgba(45, 90, 130, 0.25), 0 1px 3px rgba(0, 0, 0, 0.15);
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.3s ease;
+    z-index: 2;
+}
+
+/* Checked State (Dark Mode) */
+.toggle-switch input:checked + .toggle-slider {
+    background: linear-gradient(135deg, #1e3a53, #152738);
+    border-color: #3b5f7e;
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+.toggle-switch input:checked + .toggle-slider .toggle-knob {
+    transform: translateX(36px);
+    background: #4d91c5;
+    box-shadow: 0 4px 14px rgba(77, 145, 197, 0.45);
+}
+
+.toggle-switch input:checked + .toggle-slider .sun-icon {
+    opacity: 0.35;
+    transform: scale(0.85);
+}
+
+.toggle-switch input:checked + .toggle-slider .moon-icon {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.toggle-switch:hover .toggle-slider {
+    border-color: var(--blue);
+}
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+.logout-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    border: 1px solid #f0caca;
+    border-radius: 17px;
+    background: #fffafa;
+    color: #d9534f;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+
+.logout-btn:hover {
+    background: #fff0f0;
+    transform: translateY(-2px);
+}
+
+.logout-arrow {
+    margin-left: auto;
+    font-size: 18px;
+}
+
+/* =========================
+   MOBILE LAYOUT
+========================= */
+
+@media (max-width: 768px) {
+    .settings-container {
+        width: calc(100% - 32px);
+        padding: 28px 0 0;
+    }
+
+    .settings-header {
+        margin-bottom: 26px;
+    }
+
+    .back-btn {
+        margin-bottom: 20px;
+    }
+
+    .settings-header h1 {
+        font-size: 36px;
+        letter-spacing: -1.5px;
+    }
+
+    .settings-card {
+        border-radius: 20px;
+        padding: 20px;
+        margin-bottom: 14px;
+    }
+
+    .theme-switch-row {
+        padding: 16px;
+        gap: 12px;
+    }
+}
+
+
+/* =========================
+   DARK MODE 🌙
+========================= */
+
+html.dark-mode body,
+body.dark-mode {
+    --bg: #0d1720;
+    --card: #152530;
+    --text: #edf5f9;
+    --muted: #9eb0bc;
+    --line: #243a4a;
+    --soft-blue: #1c3040;
+}
+
+html.dark-mode .settings-card,
+body.dark-mode .settings-card {
+    background: var(--card);
+    border-color: var(--line);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+}
+
+html.dark-mode .setting-icon,
+body.dark-mode .setting-icon {
+    background: #233c50;
+    color: #8ecbff;
+}
+
+html.dark-mode .logout-btn,
+body.dark-mode .logout-btn {
+    background: rgba(217, 83, 79, 0.12);
+    border-color: rgba(217, 83, 79, 0.3);
+    color: #ff7875;
+}
+
+html.dark-mode .logout-btn:hover,
+body.dark-mode .logout-btn:hover {
+    background: rgba(217, 83, 79, 0.2);
+}

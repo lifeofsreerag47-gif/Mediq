@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointments | MediQ</title>
+    <link rel="stylesheet" href="appoint.css">
+    <link rel="stylesheet" href="../sidebar/sidebar.css">
+    <link rel="stylesheet" href="../popup.css">
+    <script src="../theme.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.8/html5-qrcode.min.js"></script>
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+</head>
+
+<script>
+    fetch("../sidebar/sidebar.html")
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById("sidebar-container").innerHTML = data;
+            if (typeof setActivePage === "function") setActivePage();
+        })
+        .catch(error => console.error("Sidebar loading error:", error));
+</script>
+
+<script src="../sidebar/sidebar.js"></script>
+
+<body class="appointments-page">
+    <div id="sidebar-container"></div>
+
+    <!-- MAIN PAGE HEADER -->
+    <div class="page-header-row">
+        <div>
+            <h1 id="pageMainHeading">Appointments</h1>
+            <p id="pageSubHeading" style="color: #64748b; font-size: 14px; margin-top: 4px;">
+                Manage your scheduled visits and live queue
+            </p>
+        </div>
+
+        <!-- Doctor Toolbar (Displayed only for Doctors) -->
+        <div class="stats-and-actions" id="doctorToolbar" style="display: none;">
+            <div class="duty-control" aria-live="polite">
+                <label class="duty-switch" for="onDutyToggle">
+                    <input type="checkbox" id="onDutyToggle">
+                    <span class="duty-slider"></span>
+                    <span id="onDutyLabel">Offline</span>
+                </label>
+                <input type="text" id="availableFromNote" maxlength="80" placeholder="Available from (optional)" aria-label="Available from note">
+            </div>
+            <div class="queue-badge" id="doctorQueueBadge">
+                <span>👥 Queue:</span>
+                <strong id="queueCountVal">0 Patients</strong>
+                <span>• ⏱️ Est. Wait:</span>
+                <strong id="queueWaitVal">0 min</strong>
+            </div>
+
+            <button type="button" class="action-tool-btn btn-add-offline" id="openAddOfflineBtn">
+                ➕ Add Offline Patient
+            </button>
+
+            <button type="button" class="action-tool-btn btn-scan-qr" id="openScanQrBtn">
+                📷 Scan QR Code
+            </button>
+        </div>
+    </div>
+
+    <!-- ========================================================
+         SECTION A: PATIENT APPOINTMENTS (For Doctors) OR PATIENT'S APPOINTMENTS (For Patients)
+    ======================================================== -->
+    <div class="section-title-wrap" id="sectionAHeaderWrap">
+        <h2 id="sectionATitle">Your Booked Appointments</h2>
+    </div>
+
+    <div class="doctor-cards" id="appointmentsList">
+        <p id="loading-appointments" style="grid-column: 1 / -1; text-align: center; padding: 40px; color: #777; font-size: 16px;">
+            Loading appointments in real-time…
+        </p>
+        <p id="no-appointments" style="display: none; grid-column: 1 / -1; text-align: center; padding: 40px; color: #777; font-size: 16px;">
+            No appointments booked yet.
+        </p>
+    </div>
+
+    <!-- ========================================================
+         SECTION B: NORMAL APPOINTMENTS (Doctor's own appointments with other doctors)
+    ======================================================== -->
+    <div id="sectionBContainer" style="display: none; margin-top: 40px;">
+        <div class="section-title-wrap">
+            <h2>Normal Appointments (Your Personal Visits)</h2>
+        </div>
+
+        <div class="doctor-cards" id="normalAppointmentsList">
+            <p id="no-normal-appointments" style="grid-column: 1 / -1; text-align: center; padding: 30px; color: #777; font-size: 15px;">
+                No personal appointments booked with other doctors.
+            </p>
+        </div>
+    </div>
+
+    <!-- ========================================================
+         DOCTOR / APPOINTMENT DETAILS POPUP
+    ======================================================== -->
+    <div class="details-overlay" id="detailsOverlay">
+        <div class="details-modal" id="detailsModal">
+            <button class="close-modal" id="closeModal">×</button>
+
+            <div class="modal-header">
+                <div>
+                    <p class="modal-label">APPOINTMENT DETAILS</p>
+                    <h2 id="modalDoctorName">—</h2>
+                    <p id="modalSpecialityHospital">—</p>
+                </div>
+                <div class="waiting-time">
+                    ⏱️ <strong id="modalWaitTime">15 min</strong>
+                    <span>Est. Waiting Time</span>
+                </div>
+            </div>
+
+            <div class="details-grid">
+                <div class="detail-box">
+                    <span>👨‍⚕️ Doctor</span>
+                    <strong id="modalDoctor">—</strong>
+                    <p id="modalExperience">—</p>
+                </div>
+
+                <div class="detail-box">
+                    <span>👤 Patient</span>
+                    <strong id="modalPatient">—</strong>
+                    <p id="modalType">Online Booking</p>
+                </div>
+
+                <div class="detail-box">
+                    <span>📅 Appointment</span>
+                    <strong id="modalDate">—</strong>
+                    <p id="modalTime">—</p>
+                </div>
+
+                <div class="detail-box">
+                    <span>📍 Location</span>
+                    <strong id="modalHospital">—</strong>
+                    <p id="modalLocation">—</p>
+                </div>
+
+                <div class="detail-box" style="grid-column: 1 / -1;" id="modalNotesWrap">
+                    <span>📝 Patient Notes / Reason</span>
+                    <strong id="modalNotes" style="font-weight: normal; font-size: 13px; color: #334155;">—</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================
+         ADD OFFLINE PATIENT MODAL (FOR DOCTORS)
+    ======================================================== -->
+    <div class="form-modal-overlay" id="offlineModalOverlay">
+        <div class="form-modal">
+            <button class="close-modal" id="closeOfflineModal">×</button>
+            <h2>Add Offline Patient</h2>
+            <p>Add a walk-in patient directly to your live queue (+15 min wait time)</p>
+
+            <form id="offlinePatientForm">
+                <div class="form-group">
+                    <label for="offlinePatientName">Patient Full Name *</label>
+                    <input type="text" id="offlinePatientName" placeholder="e.g. Rahul Sharma" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="offlinePatientPhone">Contact Phone Number</label>
+                    <input type="tel" id="offlinePatientPhone" placeholder="e.g. +91 9876543210">
+                </div>
+
+                <div class="form-group">
+                    <label for="offlineTimeSlot">Time Slot</label>
+                    <select id="offlineTimeSlot">
+                        <option value="Walk-in (Current Slot)" selected>Walk-in (Current Slot)</option>
+                        <option value="09:00 AM – 10:00 AM">09:00 AM – 10:00 AM</option>
+                        <option value="10:00 AM – 11:00 AM">10:00 AM – 11:00 AM</option>
+                        <option value="11:00 AM – 12:00 PM">11:00 AM – 12:00 PM</option>
+                        <option value="01:00 PM – 02:00 PM">01:00 PM – 02:00 PM</option>
+                        <option value="02:00 PM – 03:00 PM">02:00 PM – 03:00 PM</option>
+                        <option value="03:00 PM – 04:00 PM">03:00 PM – 04:00 PM</option>
+                        <option value="04:00 PM – 05:00 PM">04:00 PM – 05:00 PM</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="offlineNotes">Symptoms / Notes (Optional)</label>
+                    <textarea id="offlineNotes" rows="2" placeholder="Brief issue description..."></textarea>
+                </div>
+
+                <div class="form-modal-actions">
+                    <button type="submit" class="action-tool-btn btn-add-offline" style="width: 100%; justify-content: center;" id="submitOfflineBtn">
+                        Add to Live Queue
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ========================================================
+         QR SCANNER MODAL (FOR DOCTORS)
+    ======================================================== -->
+    <div class="scanner-modal-overlay" id="scannerOverlay">
+        <div class="scanner-modal">
+            <button class="close-modal" id="closeScannerBtn">×</button>
+            <h2>📷 QR Appointment Scanner</h2>
+            <p>Scan the patient's digital ticket QR code</p>
+
+            <div id="qr-reader-container">
+                <div id="qr-reader"></div>
+            </div>
+
+            <div style="margin-top: 14px; padding-top: 12px; border-top: 1px solid #edf2f7;">
+                <p style="font-size: 12px; color: #64748b; margin-bottom: 6px;">Or verify by Appointment ID / Token:</p>
+                <div class="manual-code-input-wrap">
+                    <input type="text" id="manualApptCode" placeholder="Enter Appointment ID or Token">
+                    <button type="button" class="action-tool-btn btn-scan-qr" id="verifyManualBtn">Verify</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================
+         DIGITAL TICKET PASS POPUP (QR CODE)
+    ======================================================== -->
+    <div class="ticket-overlay" id="ticketOverlay">
+        <div class="ticket-modal">
+            <div class="ticket-top">
+                <div class="ticket-brand">MediQ Digital Pass</div>
+                <h2 id="ticketDoctorName">Dr. Doctor Name</h2>
+                <div class="ticket-pass-badge">DIGITAL APPOINTMENT PASS</div>
+            </div>
+
+            <div class="ticket-divider-wrap">
+                <div class="ticket-notch-left"></div>
+                <div class="ticket-dashed-line"></div>
+                <div class="ticket-notch-right"></div>
+            </div>
+
+            <div class="ticket-body">
+                <div class="ticket-info-grid">
+                    <div class="ticket-info-item">
+                        <span>Patient</span>
+                        <strong id="ticketPatientName">—</strong>
+                    </div>
+                    <div class="ticket-info-item">
+                        <span>Date</span>
+                        <strong id="ticketDate">—</strong>
+                    </div>
+                    <div class="ticket-info-item">
+                        <span>Time Slot</span>
+                        <strong id="ticketTimeSlot">—</strong>
+                    </div>
+                    <div class="ticket-info-item">
+                        <span>Speciality</span>
+                        <strong id="ticketSpeciality">—</strong>
+                    </div>
+                    <div class="ticket-info-item" style="grid-column: 1 / -1;">
+                        <span>Hospital</span>
+                        <strong id="ticketHospital">—</strong>
+                    </div>
+                    <div class="ticket-info-item" style="grid-column: 1 / -1;">
+                        <span>Appointment ID</span>
+                        <strong id="ticketApptId" style="font-family: monospace; font-size: 13px; color: #2878c8;">—</strong>
+                    </div>
+                </div>
+
+                <div class="ticket-qr-container">
+                    <div id="ticketQrCode"></div>
+                    <div class="ticket-qr-hint">Show this QR code upon arrival at the clinic during your booked slot</div>
+                </div>
+
+                <div class="ticket-actions">
+                    <button type="button" class="ticket-btn-primary" id="closeTicketModalBtn" style="width: 100%;">Done</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="../popup.js"></script>
+    <script type="module" src="appoint.js"></script>
+</body>
+</html>

@@ -1,0 +1,832 @@
+@font-face {
+    font-family: "font";
+    src: url("font.ttf") format("truetype");
+}  
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "font", sans-serif;
+    background: #E3FFF5;
+    margin-top: 30px;
+    padding-left: 40px;
+    margin-left: 80px;
+    min-height: 100vh;
+}
+
+h1 {
+    color: #375C94;
+    font-size: 28px;
+}
+
+.page-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 25px;
+    padding-right: 40px;
+}
+
+.stats-and-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.duty-control {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.duty-switch {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: #1d3557;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.duty-switch input { display: none; }
+
+.duty-slider {
+    width: 38px;
+    height: 22px;
+    background: #94a3b8;
+    border-radius: 999px;
+    position: relative;
+    transition: background .2s ease;
+}
+
+.duty-slider::after {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    left: 3px;
+    top: 3px;
+    background: #fff;
+    border-radius: 50%;
+    transition: transform .2s ease;
+}
+
+.duty-switch input:checked + .duty-slider { background: #35AB68; }
+.duty-switch input:checked + .duty-slider::after { transform: translateX(16px); }
+
+#availableFromNote {
+    width: 180px;
+    padding: 8px 11px;
+    border: 1px solid #B5DCFF;
+    border-radius: 18px;
+    font-family: "font", sans-serif;
+    font-size: 12px;
+    outline: none;
+}
+
+.queue-badge {
+    background: #ffffff;
+    color: #1d3557;
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 600;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    border: 1px solid #B5DCFF;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.queue-badge strong {
+    color: #2878c8;
+}
+
+.action-tool-btn {
+    padding: 10px 18px;
+    border-radius: 50px;
+    border: none;
+    font-family: "font", sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn-add-offline {
+    background: #35AB68;
+    color: white;
+}
+.btn-add-offline:hover {
+    background: #2b8c54;
+    transform: scale(1.03);
+    box-shadow: 0 4px 15px rgba(53, 171, 104, 0.3);
+}
+
+.btn-scan-qr {
+    background: #1d3557;
+    color: white;
+}
+.btn-scan-qr:hover {
+    background: #2878c8;
+    transform: scale(1.03);
+    box-shadow: 0 4px 15px rgba(29, 53, 87, 0.3);
+}
+
+/* Section Dividers */
+.section-title-wrap {
+    margin: 35px 0 20px 0;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #cbe5f5;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 40px;
+}
+
+.section-title-wrap h2 {
+    color: #1d3557;
+    font-size: 22px;
+}
+
+/* =========================
+   DOCTOR CARDS CONTAINER
+========================= */
+
+.doctor-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    gap: 25px;
+    width: 100%;
+    padding-right: 40px;
+}
+
+/* =========================
+   DOCTOR / APPOINTMENT CARD
+========================= */
+
+.doctor-card {
+    background: white;
+    border-radius: 20px;
+    padding: 22px;
+    min-height: 320px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    transition: 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    border: 1px solid #eef2f6;
+}
+
+.doctor-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.card-type-tag {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.card-type-tag.online {
+    background: #e0f2fe;
+    color: #0369a1;
+}
+.card-type-tag.offline {
+    background: #fef3c7;
+    color: #b45309;
+}
+
+.doctor-image {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 12px;
+    border: 3px solid #eef5ff;
+}
+
+.doctor-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.doctor-details {
+    width: 100%;
+}
+
+.doctor-details h2 {
+    font-size: 17px;
+    color: #1d3557;
+    margin-bottom: 4px;
+}
+
+.speciality {
+    color: #2878c8;
+    font-weight: bold;
+    font-size: 13px;
+    margin-bottom: 4px;
+}
+
+.experience {
+    color: #64748b;
+    font-size: 12px;
+}
+
+.doctor-details hr {
+    margin: 12px 0;
+    border: none;
+    border-top: 1px solid #eee;
+}
+
+.hospital {
+    font-size: 12px;
+    color: #64748b;
+}
+
+.appointment-slot-info {
+    margin-top: 10px;
+    padding: 8px 12px;
+    background: #f0f7ff;
+    border-radius: 10px;
+    color: #1e40af;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.notes-preview {
+    font-size: 11px;
+    color: #64748b;
+    font-style: italic;
+    margin-top: 6px;
+    max-height: 36px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.doctor-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    width: 100%;
+    margin-top: auto;
+    padding-top: 15px;
+}
+
+.doctor-actions button {
+    flex: 1 1 calc(50% - 4px);
+    font-family: "font", sans-serif;
+    padding: 9px 6px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    border: none;
+    transition: all 0.2s ease;
+}
+
+.book-btn, .check-details-btn {
+    background: #84B0CF;
+    color: white;
+}
+.book-btn:hover, .check-details-btn:hover {
+    background: #406b8b;
+    transform: scale(1.02);
+}
+
+.ticket-btn {
+    background: #31568F;
+    color: white;
+}
+.ticket-btn:hover {
+    background: #1d3557;
+    transform: scale(1.02);
+}
+
+.complete-btn {
+    background: #35AB68;
+    color: white;
+}
+.complete-btn:hover {
+    background: #268951;
+    transform: scale(1.02);
+}
+
+.status-btn {
+    background: #31568F;
+    color: white;
+}
+.status-btn:hover {
+    background: #1d3557;
+    transform: scale(1.02);
+}
+
+.no-show-btn {
+    background: #f59e0b;
+    color: white;
+}
+.no-show-btn:hover {
+    background: #d97706;
+    transform: scale(1.02);
+}
+
+.cancel-btn {
+    background: #ef4444;
+    color: white;
+}
+.cancel-btn:hover {
+    background: #dc2626;
+    transform: scale(1.02);
+}
+
+/* =========================
+   DOCTOR DETAILS MODAL
+========================= */
+
+.details-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 25, 35, 0.45);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.35s ease, visibility 0.35s ease;
+}
+
+.details-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.details-modal {
+    width: min(600px, 92vw);
+    background: white;
+    border-radius: 25px;
+    padding: 30px;
+    position: relative;
+    transform: scale(0.85);
+    opacity: 0;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+    box-shadow: 0 25px 80px rgba(0, 0, 0, 0.25);
+}
+
+.details-overlay.show .details-modal {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.close-modal {
+    position: absolute;
+    top: 18px;
+    right: 20px;
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 50%;
+    background: #f1f3f5;
+    font-size: 22px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.close-modal:hover {
+    background: #e0e4e8;
+    transform: rotate(90deg);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.modal-header h2 {
+    color: #1d3557;
+    margin: 5px 0;
+    font-size: 20px;
+}
+
+.modal-label {
+    font-size: 12px;
+    letter-spacing: 1px;
+    color: #2878c8 !important;
+    font-weight: bold;
+}
+
+.waiting-time {
+    background: #E3FFF5;
+    border-radius: 15px;
+    padding: 12px 18px;
+    text-align: center;
+    color: #1d3557;
+    border: 1px solid #a7ebd2;
+}
+
+.waiting-time strong {
+    display: block;
+    font-size: 20px;
+}
+
+.waiting-time span {
+    display: block;
+    font-size: 11px;
+    margin-top: 2px;
+}
+
+.details-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin: 20px 0;
+}
+
+.detail-box {
+    background: #e8f4fc;
+    padding: 14px;
+    border-radius: 14px;
+    transition: all 0.25s ease;
+}
+
+.detail-box span {
+    display: block;
+    font-size: 12px;
+    color: #64748b;
+    margin-bottom: 4px;
+}
+
+.detail-box strong {
+    color: #1d3557;
+    display: block;
+    font-size: 14px;
+}
+
+.detail-box p {
+    color: #64748b;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+/* ========================================================
+   OFFLINE PATIENT MODAL ➕
+======================================================== */
+.form-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 25, 35, 0.55);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10005;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+}
+.form-modal-overlay.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+.form-modal {
+    width: min(480px, 92vw);
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 28px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    position: relative;
+    transform: scale(0.9) translateY(15px);
+    transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.form-modal-overlay.show .form-modal {
+    transform: scale(1) translateY(0);
+}
+.form-modal h2 {
+    color: #1d3557;
+    margin-bottom: 6px;
+    font-size: 20px;
+}
+.form-modal p {
+    color: #64748b;
+    font-size: 13px;
+    margin-bottom: 20px;
+}
+.form-group {
+    margin-bottom: 16px;
+}
+.form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #334155;
+    margin-bottom: 6px;
+}
+.form-group input, .form-group textarea, .form-group select {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 12px;
+    font-family: "font", sans-serif;
+    font-size: 13px;
+    outline: none;
+}
+.form-group input:focus, .form-group textarea:focus {
+    border-color: #2878c8;
+    box-shadow: 0 0 0 3px rgba(40, 120, 200, 0.15);
+}
+.form-modal-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 22px;
+}
+
+/* ========================================================
+   QR SCANNER MODAL 📷
+======================================================== */
+.scanner-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 25, 35, 0.65);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10006;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+}
+.scanner-modal-overlay.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+.scanner-modal {
+    width: min(440px, 94vw);
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 26px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+    position: relative;
+    text-align: center;
+}
+.scanner-modal h2 {
+    color: #1d3557;
+    margin-bottom: 6px;
+    font-size: 20px;
+}
+.scanner-modal p {
+    color: #64748b;
+    font-size: 13px;
+    margin-bottom: 16px;
+}
+#qr-reader-container {
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto 16px auto;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #000;
+    min-height: 240px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#qr-reader {
+    width: 100%;
+}
+.manual-code-input-wrap {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+}
+.manual-code-input-wrap input {
+    flex: 1;
+    padding: 10px 14px;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 50px;
+    font-family: "font", sans-serif;
+    font-size: 13px;
+    outline: none;
+}
+
+/* ========================================================
+   DIGITAL TICKET PASS POPUP (Movie-Ticket Style) 🎫
+======================================================== */
+.ticket-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 25, 35, 0.65);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10001;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+.ticket-overlay.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+.ticket-modal {
+    width: min(440px, 92vw);
+    background: #ffffff;
+    border-radius: 24px;
+    box-shadow: 0 25px 70px rgba(0,0,0,0.35);
+    overflow: hidden;
+    position: relative;
+    transform: scale(0.85) translateY(20px);
+    transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 2px solid #B5DCFF;
+}
+.ticket-overlay.show .ticket-modal {
+    transform: scale(1) translateY(0);
+}
+.ticket-top {
+    background: linear-gradient(135deg, #1d3557 0%, #31568f 100%);
+    color: white;
+    padding: 24px 24px 18px 24px;
+    text-align: center;
+    position: relative;
+}
+.ticket-brand {
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #93c5fd;
+    margin-bottom: 6px;
+}
+.ticket-top h2 {
+    font-size: 20px;
+    margin: 0;
+}
+.ticket-pass-badge {
+    display: inline-block;
+    background: #35AB68;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: bold;
+    margin-top: 10px;
+    letter-spacing: 1px;
+}
+.ticket-divider-wrap {
+    position: relative;
+    height: 24px;
+    background: #ffffff;
+}
+.ticket-notch-left, .ticket-notch-right {
+    position: absolute;
+    top: -12px;
+    width: 24px;
+    height: 24px;
+    background: rgba(15, 25, 35, 0.65);
+    border-radius: 50%;
+}
+.ticket-notch-left { left: -12px; }
+.ticket-notch-right { right: -12px; }
+.ticket-dashed-line {
+    border-top: 2px dashed #cbd5e1;
+    margin-top: 11px;
+    width: 100%;
+}
+.ticket-body {
+    padding: 10px 24px 24px 24px;
+    background: #ffffff;
+}
+.ticket-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 18px;
+}
+.ticket-info-item span {
+    display: block;
+    font-size: 11px;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 3px;
+}
+.ticket-info-item strong {
+    display: block;
+    font-size: 14px;
+    color: #1d3557;
+    word-break: break-word;
+}
+.ticket-qr-container {
+    background: #f8fafc;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 18px;
+}
+#ticketQrCode {
+    width: 232px;
+    height: 232px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff !important;
+    padding: 6px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+}
+#ticketQrCode canvas, #ticketQrCode img {
+    width: 220px !important;
+    height: 220px !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    display: block;
+    image-rendering: pixelated;
+}
+.ticket-qr-hint {
+    font-size: 11px;
+    color: #64748b;
+    margin-top: 8px;
+    text-align: center;
+}
+.ticket-actions {
+    display: flex;
+    gap: 10px;
+}
+.ticket-btn-primary {
+    flex: 1;
+    padding: 12px;
+    background: #1d3557;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-family: "font", sans-serif;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.ticket-btn-primary:hover {
+    background: #2878c8;
+}
+
+/* =========================
+   DARK MODE 🌙
+========================= */
+html.dark-mode body,
+body.dark-mode {
+    background: #0d1720 !important;
+    color: #eaf3f8 !important;
+}
+
+html.dark-mode h1,
+body.dark-mode h1 {
+    color: #8ecbff !important;
+}
+
+html.dark-mode .doctor-card {
+    background: #152530 !important;
+    border-color: #243a4a !important;
+}
+html.dark-mode .details-modal,
+html.dark-mode .form-modal,
+html.dark-mode .scanner-modal,
+html.dark-mode .ticket-modal,
+html.dark-mode .ticket-body {
+    background: #152530 !important;
+    color: #eaf3f8 !important;
+    border-color: #243a4a !important;
+}
+html.dark-mode .detail-box {
+    background: #1c3242 !important;
+    border: 1px solid #284459 !important;
+}

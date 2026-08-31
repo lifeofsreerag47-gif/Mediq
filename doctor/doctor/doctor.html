@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="../../favicon.ico">
+    <title>Doctor Sign Up</title>
+
+    <link rel="stylesheet" href="doctor.css">
+    <link rel="stylesheet" href="../../popup.css">
+    <script src="../../theme.js"></script>
+</head>
+
+<body>
+
+    <div class="doctor-container">
+
+        <div class="doctor-box">
+
+            <h1>Doctor's Details</h1>
+
+            <form id="doctorForm">
+
+                <!-- Row 1 -->
+                <div class="form-row">
+
+                    <input
+                        type="text"
+                        id="fullName"
+                        placeholder="Full Name"
+                        required
+                        class="input"
+                    >
+
+                    <input
+                        type="date"
+                        id="dob"
+                        required
+                        class="input"
+                    >
+                    <div class="select">
+                    <select id="gender" required >
+                        <option value="" disabled selected>Gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                    <img src="arrow.svg" class="arrow" id="arrow">
+                    </div>
+
+                </div>
+
+
+                <!-- Row 2 -->
+                <div class="form-row">
+
+                    <input
+                        type="tel"
+                        id="phone"
+                        placeholder="Phone Number"
+                        required
+                        class="input"
+                        
+                    >
+
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="Email Address"
+                        required
+                        class="input"
+                    >
+
+                </div>
+
+
+                <!-- Row 3 -->
+                <div class="form-row">
+
+                    <input
+                        type="text"
+                        id="address"
+                        placeholder="Address"
+                        required
+                        class="input"
+                    >
+
+                </div>
+
+
+                <!-- Professional Details -->
+                <h2>Professional Details</h2>
+
+
+                <!-- Row 4 -->
+                <div class="form-row">
+                    <div class="special">
+                    <select id="specialization" required>
+
+                        <option value="" disabled selected>
+                            Specialization
+                        </option>
+
+                        <option value="Cardiology">Cardiology</option>
+                        <option value="Dermatology">Dermatology</option>
+                        <option value="Neurology">Neurology</option>
+                        <option value="Dentistry">Dentistry</option>
+                        <option value="General Physician">General Physician</option>
+                        <option value="Orthopedics">Orthopedics</option>
+                        <option value="Ophthalmology">Ophthalmology</option>
+                        <option value="Pediatrics">Pediatrics</option>
+                        <option value="Psychiatry">Psychiatry</option>
+                    </select>
+                    <img src="arrow.svg" alt="" class="arrow1" id="arrow1">
+                    </div>
+                    <input
+                        type="number"
+                        id="experience"
+                        placeholder="Years of Experience"
+                        min="0"
+                        required
+                        class="input"
+                    >
+
+                </div>
+
+
+                <!-- Row 5 -->
+                <div class="form-row">
+
+                    <input
+                        type="text"
+                        id="license"
+                        placeholder="Medical License Number"
+                        required
+                        class="input"
+                    >
+
+                </div>
+                <h2>Hospital Details</h2>
+
+<div class="hospital-question">
+
+    <label>Are you currently working at a hospital?</label>
+
+    <div class="radio-group">
+
+        <label>
+            <input type="radio" name="workingHospital" value="yes" class="radio-input">
+            <div class="radio-design"></div>
+            Yes
+        </label>
+
+        <label>
+            <input type="radio" name="workingHospital" value="no" class="radio-input">
+            <div class="radio-design"></div>
+            No
+        </label>
+
+    </div>
+
+</div>
+
+
+<!-- Hospital details will appear when Yes is selected -->
+
+<div id="hospitalDetails">
+
+    <div class="form-row">
+
+        <input
+            type="text"
+            id="hospitalName"
+            placeholder="Hospital Name"
+            class="input"
+        >
+
+        <input
+            type="text"
+            id="hospitalLocation"
+            placeholder="Hospital Location"
+            class="input"
+        >
+
+    </div>
+
+
+    <div class="form-row">
+
+        <input
+            type="text"
+            id="department"
+            placeholder="Department"
+            class="input"
+        >
+
+        <input
+            type="text"
+            id="designation"
+            placeholder="Designation"
+            class="input"
+        >
+
+    </div>
+    <!-- Step 4: Employment Proof -->
+
+<div class="form-row">
+
+    <input
+        type="date"
+        id="joiningDate"
+        required
+        class="input"
+    >
+
+    <input
+        type="text"
+        id="employeeId"
+        placeholder="Hospital Employee ID"
+        class="input"
+    >
+
+</div>
+
+
+
+
+</div>
+<div id="accountSecurity">
+
+    <h2>Account Security</h2>
+
+    <div class="form-row">
+
+        <input
+            type="password"
+            id="password"
+            placeholder="Create Password"
+            required
+            class="input"
+        >
+
+        <input
+            type="password"
+            id="confirmPassword"
+            placeholder="Confirm Password"
+            required
+            class="input"
+        >
+
+    </div>
+
+    <div class="terms-section">
+
+        <label class="terms-text" style="transform: translateY(-5px);">
+            <input type="checkbox" id="terms" required>
+
+            I confirm that all the information provided is correct.
+        </label>
+
+    </div>
+
+    <button type="submit" class="signup-btn">
+        Sign Up
+    </button><br>
+    <a href="../../index.html"><button class="signin" type="button" id="next">Already having an account? Sign in</button></a>
+
+</div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <script type="module" src="../../popup.js"></script>
+    <script type="module" src="doctor.js"></script>
+
+</body>
+
+</html>

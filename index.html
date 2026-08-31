@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | MediQ</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="popup.css">
+    <script src="theme.js"></script>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body>
+    <div id="login-sec">    
+        <div id="switch">
+            <div class="slider"></div>
+            <button class="but" id="pat" type="button">Patient</button>
+            <button class="but" style="color: black;" id="doc" type="button">Doctor</button>
+        </div>
+        <h2 style="color:#31568F">Login</h2>
+        <br><input id="pid" placeholder="Patient Email" autocomplete="email"><br>
+        <br>
+        <div class="passbox">
+            <input id="Ppass" type="password" placeholder="Password" class="passw" autocomplete="current-password">
+            <span id="showpass"><img src="show.png" alt="Show Password"></span>
+            <span id="hidpass"><img src="hide.png" alt="Hide Password"></span>
+        </div>
+        <br><br>
+        <button id="submit" type="button">Login</button>
+        <button class="signup" id="signup" type="button">No Account? Sign up then</button>
+    </div>
+
+    <!-- Reusable custom popup overlay -->
+    <div id="popup-overlay">
+        <div id="popup-box">
+            <div id="popup-icon"></div>
+            <p id="popup-message"></p>
+            <button id="popup-close">OK</button>
+        </div>
+    </div>
+
+    <script type="module" src="popup.js"></script>
+    <script type="module" src="script.js"></script>
+</body>
+</html>

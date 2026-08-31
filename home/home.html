@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home | MediQ</title>
+    <link rel="stylesheet" href="Home.css">
+    <link rel="stylesheet" href="../popup.css">
+    <script src="../theme.js"></script>
+    <link rel="stylesheet" href="../sidebar/sidebar.css">
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+</head>
+<script>
+    fetch("../sidebar/sidebar.html")
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById("sidebar-container").innerHTML = data;
+
+            // Set active page AFTER sidebar loads
+            setActivePage();
+        })
+        .catch(error => console.error("Sidebar loading error:", error));
+</script>
+
+<script src="../sidebar/sidebar.js"></script>
+<body>
+    <!-- SIDEBAR: kept unchanged -->
+    <div id="sidebar-container"></div>
+
+    <main class="page-content" id="home">
+        <header class="topbar">
+            <div class="brand">
+                <img src="logoMQ.png" alt="MQ Logo" class="brand-logo">
+                <span>Medi<span>Q</span></span>
+            </div>
+            <div class="top-actions">
+                <span class="welcome">Your health, made simpler.</span>
+                <div class="auth-area">
+
+                    <!-- Shown when user is NOT logged in -->
+                    <button id="loginBtn">Login</button>
+
+                    <!-- Shown when user IS logged in -->
+                    <div class="profile-menu" id="profileMenu">
+
+                        <button class="profile-trigger" id="profileTrigger">
+                            <img id="navProfileImage" src="" alt="Profile">
+                        </button>
+
+                        <div class="profile-dropdown" id="profileDropdown">
+
+                            <div class="profile-dropdown-header">
+                                <img id="dropdownProfileImage" src="" alt="Profile">
+                                <div>
+                                    <strong id="dropdownUserName">Loading...</strong>
+                                    <span id="dropdownUserRole">Patient</span>
+                                </div>
+                            </div>
+
+                            <div class="dropdown-divider"></div>
+
+                            <button class="dropdown-item" id="myProfileBtn">
+                                👤 My Profile
+                            </button>
+
+                            <button class="dropdown-item">
+                                ⚙️ Settings
+                            </button>
+
+                            <div class="dropdown-divider"></div>
+
+                            <button class="dropdown-item logout-item" id="logoutBtn">
+                                🚪 Logout
+                            </button>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </header>
+
+        <!-- HERO -->
+        <section class="hero">
+            <div class="hero-content">
+                <div class="eyebrow"><span></span> Healthcare that works around you</div>
+                <h1 id="heroTitle">
+                    Find the right care.<br>
+                    <em>Without the waiting.</em>
+                </h1>
+
+                <p id="heroDescription">
+                    Discover trusted doctors, book appointments, and plan your visit with a smarter healthcare experience.
+                </p>
+
+                <div class="hero-actions">
+                    <a href="Find_doctors/fincdoc.html" class="primary-btn">Find a Doctor <span>→</span></a>
+                    <a href="../appoint/appoint.html" class="secondary-btn">Book Appointment</a>
+                </div>
+
+                <div class="trust-row">
+                    <div><strong>✓</strong> Easy booking</div>
+                    <div><strong>✓</strong> Trusted care</div>
+                    <div><strong>✓</strong> Less waiting</div>
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <div class="hero-glow"></div>
+                <div class="hero-image-wrap">
+                    <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1000&q=85" alt="Healthcare professional helping a patient">
+                </div>
+                <div class="floating-card appointment-card">
+                    <div class="mini-icon">📅</div>
+                    <div><small>Next appointment</small><strong>Book in minutes</strong></div>
+                </div>
+                <div class="floating-card wait-card">
+                    <div class="pulse"></div>
+                    <div><small>Smarter visits</small><strong>Know before you go</strong></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- QUICK ACTIONS -->
+        <section class="quick-section">
+            <div class="section-heading compact">
+                <div>
+                    <span class="section-kicker">GET STARTED</span>
+                    <h2>How can we help today?</h2>
+                </div>
+            </div>
+
+            <div class="quick-grid">
+                <a href="Find_doctors/fincdoc.html" class="quick-card">
+                    <div class="quick-icon">👨‍⚕️</div>
+                    <div><h3>Find a Doctor</h3><p>Search specialists and choose the right care.</p></div>
+                    <span class="arrow">→</span>
+                </a>
+                <a href="../appoint/appoint.html" class="quick-card">
+                    <div class="quick-icon">📅</div>
+                    <div><h3>Book a Visit</h3><p>Schedule your appointment in just a few steps.</p></div>
+                    <span class="arrow">→</span>
+                </a>
+                <a href="../Specialities/Specialities/special.html" class="quick-card">
+                    <div class="quick-icon">🩺</div>
+                    <div><h3>Explore Specialties</h3><p>Find care tailored to your needs.</p></div>
+                    <span class="arrow">→</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- SPECIALTIES -->
+        <section class="content-section">
+            <div class="section-heading">
+                <div>
+                    <span class="section-kicker">SPECIALIZED CARE</span>
+                    <h2>Browse by specialty</h2>
+                    <p>Connect with the right kind of care for what matters most.</p>
+                </div>
+                <a href="../Specialities/Specialities/special.html" class="text-link">View all <span>→</span></a>
+            </div>
+
+            <div class="specialty-grid">
+                <a href="#" class="specialty-card"><div class="icon-box"><img src="https://cdn-icons-png.flaticon.com/512/387/387561.png" alt=""></div><span>General Physician</span></a>
+                <a href="#" class="specialty-card"><div class="icon-box"><img src="derma.png" alt=""></div><span>Dermatology</span></a>
+                <a href="#" class="specialty-card"><div class="icon-box"><img src="cardiology.png" alt=""></div><span>Cardiology</span></a>
+                <a href="#" class="specialty-card"><div class="icon-box"><img src="neuro.png" alt=""></div><span>Neurology</span></a>
+                <a href="#" class="specialty-card"><div class="icon-box"><img src="ortho.png" alt=""></div><span>Orthology</span></a>
+                <a href="#" class="specialty-card"><div class="icon-box"><img src="pedia.png" alt=""></div><span>Podiatrist</span></a>
+                <a href="#" class="specialty-card"><div class="icon-box"><img src="ph.png" alt=""></div><span>Psychiatrist</span></a>
+                <a href="../Specialities/Specialities/special.html" class="specialty-card explore-card"><div class="icon-box">→</div><span>Explore all</span></a>
+            </div>
+        </section>
+
+        <!-- HOSPITALS -->
+        <section class="content-section hospitals-section">
+            <div class="section-heading">
+                <div>
+                    <span class="section-kicker">TRUSTED PLACES</span>
+                    <h2>Browse hospitals</h2>
+                    <p>Explore healthcare providers and find a place that works for you.</p>
+                </div>
+                <a href="../hospital/hopital/hospital.html" class="text-link">View all <span>→</span></a>
+            </div>
+
+            <div class="hospital-grid">
+                <a href="#" class="hospital-card"><div class="hospital-logo"><img src="sevenhills.jpg" alt="Seven Hills"></div><span>Seven Hills</span></a>
+                <a href="#" class="hospital-card"><div class="hospital-logo"><img src="care.png" alt="Care Hospitals"></div><span>Care Hospitals</span></a>
+                <a href="#" class="hospital-card"><div class="hospital-logo"><img src="kgh.avif" alt="Kingston General Hospital"></div><span>Kingston General Hospital</span></a>
+                <a href="#" class="hospital-card"><div class="hospital-logo"><img src="kims.jpg" alt="KIMS Hospital"></div><span>KIMS Hospital</span></a>
+                <a href="#" class="hospital-card"><div class="hospital-logo"><img src="medicover.png" alt="Medicover Hospitals"></div><span>Medicover Hospitals</span></a>
+                <a href="#" class="hospital-card"><div class="hospital-logo"><img src="omega.png" alt="Omega Hospitals"></div><span>Omega Hospitals</span></a>
+            </div>
+        </section>
+
+        <!-- ABOUT -->
+        <section class="about-section">
+            <div class="about-copy">
+                <span class="section-kicker">WHY MEDIQ?</span>
+                <h2>Healthcare should fit into your life — not interrupt it.</h2>
+                <p>MediQ brings appointments, doctors, hospitals and smarter visit planning into one simple experience.</p>
+                <div class="feature-list">
+                    <div><span>01</span><p><strong>Simple discovery</strong> Find doctors and specialties without the clutter.</p></div>
+                    <div><span>02</span><p><strong>Convenient booking</strong> Move from searching to scheduling with ease.</p></div>
+                    <div><span>03</span><p><strong>Smarter waiting</strong> Built around making your healthcare visits more predictable.</p></div>
+                </div>
+            </div>
+            <div class="about-visual">
+                <div class="about-image"><img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=900&q=85" alt="Doctor consulting with a patient"></div>
+                <div class="about-badge"><strong>Care,</strong><br>made easier.</div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <div>
+                <div class="footer-brand">✚ Medi<span>Q</span></div>
+                <p>Making healthcare a little easier, one visit at a time.</p>
+            </div>
+            <div class="footer-contact">
+                <a href="mailto:Thilak@gmail.com">✉ Thilak@gmail.com</a>
+                <a href="tel:+919849979264">☎ +91 9849979264</a>
+            </div>
+        </footer>
+    </main>
+    <script type="module" src="../popup.js"></script>
+    <script type="module" src="home.js"></script>
+    <script type="module" src="profile-menu.js"></script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Settings | MediQ</title>
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+    <link rel="stylesheet" href="settings.css">
+    <link rel="stylesheet" href="../sidebar/sidebar.css">
+    <script src="../theme.js"></script>
+</head>
+<script>
+    fetch("../sidebar/sidebar.html")
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById("sidebar-container").innerHTML = data;
+
+            // Set active page AFTER sidebar loads
+            setActivePage();
+        })
+        .catch(error => console.error("Sidebar loading error:", error));
+</script>
+
+<script src="../sidebar/sidebar.js"></script>
+<body>
+    <div id="sidebar-container"></div>
+
+
+    <main class="settings-container">
+
+        <div class="settings-header">
+            <a href="../home/home.html" class="back-btn">← Back to Home</a>
+
+            <div>
+                <span class="eyebrow">PREFERENCES</span>
+                <h1>Settings</h1>
+                <p>Customize your MediQ experience.</p>
+            </div>
+        </div>
+
+
+        <!-- APPEARANCE -->
+        <section class="settings-card">
+
+            <div class="setting-title">
+                <div class="setting-icon">🎨</div>
+                <div>
+                    <h2>Appearance</h2>
+                    <p>Customize your viewing theme.</p>
+                </div>
+            </div>
+
+            <div class="theme-switch-row">
+                <div class="theme-switch-info">
+                    <div class="theme-badge" id="themeBadge">
+                        <span class="theme-badge-icon" id="themeBadgeIcon">☀️</span>
+                        <span class="theme-badge-text" id="themeBadgeText">Light Mode</span>
+                    </div>
+                    <p class="theme-switch-desc" id="themeSwitchDesc">Clean and bright day-time interface</p>
+                </div>
+
+                <label class="toggle-switch" for="themeToggle" title="Toggle Dark Mode">
+                    <input type="checkbox" id="themeToggle" aria-label="Toggle dark mode">
+                    <span class="toggle-slider">
+                        <span class="toggle-icon sun-icon">☀️</span>
+                        <span class="toggle-icon moon-icon">🌙</span>
+                        <span class="toggle-knob"></span>
+                    </span>
+                </label>
+            </div>
+
+        </section>
+
+
+        <!-- ACCOUNT -->
+        <section class="settings-card">
+
+            <div class="setting-title">
+                <div class="setting-icon">👤</div>
+                <div>
+                    <h2>Account</h2>
+                    <p>Manage your account session.</p>
+                </div>
+            </div>
+
+            <button class="logout-btn" id="logoutBtn">
+                <span>🚪</span>
+                Log out
+                <span class="logout-arrow">→</span>
+            </button>
+
+        </section>
+
+    </main>
+
+    <script src="settings.js"></script>
+
+</body>
+</html>
