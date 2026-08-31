@@ -170,8 +170,12 @@ body{
     }
 
     body {
-        display: block;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100dvh;
         padding: 20px 12px;
+        box-sizing: border-box;
         background-size: cover;
         background-repeat: no-repeat;
     }
