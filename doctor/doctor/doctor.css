@@ -441,4 +441,18 @@ input[type="file"]::file-selector-button:active {
     .special select {
         width: 100% !important;
     }
+
+    .form-row > .input,
+    .form-row > .select,
+    .form-row > .special {
+        flex: 0 0 auto;
+        width: 100% !important;
+    }
+    
+    .form-row .input,
+    .form-row select {
+        height: 56px !important;
+        min-height: 56px;
+        width: 100% !important;
+}
 }
