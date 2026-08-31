@@ -170,9 +170,7 @@ body{
     }
 
     body {
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        display: block;
         min-height: 100dvh;
         padding: 20px 12px;
         box-sizing: border-box;
@@ -181,6 +179,7 @@ body{
     }
 
     #signup-sec {
+        box-sizing: border-box;
         width: 100%;
         max-width: 420px;
         margin: 0 auto;
