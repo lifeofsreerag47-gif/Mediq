@@ -1,7 +1,3 @@
-/* ==========================================================================
-   CARECONNECT — PREMIUM SIDEBAR & BOTTOM NAVIGATION SYSTEM
-   ========================================================================== */
-
 :root {
     --cc-sidebar-bg: rgba(255, 255, 255, 0.88);
     --cc-sidebar-blur: blur(20px);
@@ -132,6 +128,7 @@ body.dark-mode {
     list-style: none;
     padding: 14px 10px;
     margin: 0;
+    position: relative;
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -194,6 +191,25 @@ body.dark-mode {
     background: var(--cc-sidebar-active-indicator);
     border-radius: 0 6px 6px 0;
     box-shadow: 0 0 10px var(--cc-sidebar-active-glow);
+}
+
+/* One movable copy of the existing active indicator. */
+.sidebar-active-indicator {
+    position: absolute;
+    pointer-events: none;
+    background: var(--cc-sidebar-active-indicator);
+    box-shadow: 0 0 10px var(--cc-sidebar-active-glow);
+    opacity: 0;
+    transition:
+        top 0.36s cubic-bezier(0.16, 1, 0.3, 1),
+        left 0.36s cubic-bezier(0.16, 1, 0.3, 1),
+        width 0.36s cubic-bezier(0.16, 1, 0.3, 1),
+        height 0.36s cubic-bezier(0.16, 1, 0.3, 1),
+        opacity 0.2s ease;
+}
+
+.menu-item.active a::before {
+    display: none;
 }
 
 /* ==========================================================================
@@ -743,7 +759,6 @@ html.dark-mode .cc-toast-btn.secondary {
     display: block;
 }
 
-filter: drop-shadow(0 2px 3px rgba(24, 51, 74, 0.16));
 
 .sidebar-header .sidebar-logo {
     width: 32px;
@@ -752,8 +767,4 @@ filter: drop-shadow(0 2px 3px rgba(24, 51, 74, 0.16));
     flex-shrink: 0;
     display: block;
     filter: drop-shadow(0 2px 3px rgba(24, 51, 74, 0.16));
-}
-
-* {
-    -webkit-tap-highlight-color: transparent;
 }
