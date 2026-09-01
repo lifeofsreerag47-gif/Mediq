@@ -753,3 +753,7 @@ filter: drop-shadow(0 2px 3px rgba(24, 51, 74, 0.16));
     display: block;
     filter: drop-shadow(0 2px 3px rgba(24, 51, 74, 0.16));
 }
+
+* {
+    -webkit-tap-highlight-color: transparent;
+}
