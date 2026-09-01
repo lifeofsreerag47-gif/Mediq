@@ -1,6 +1,3 @@
-// ==========================================================================
-// CARECONNECT — SIDEBAR NAVIGATION & APPOINTMENT NOTIFICATION ENGINE
-// ==========================================================================
 
 // Relative path resolution based on current page directory depth
 function getRootPrefix() {
@@ -34,8 +31,55 @@ const pages = {
     settings: "settings/settings.html"
 };
 
+// Moves the existing active indicator smoothly between sidebar items.
+// Desktop uses the left vertical line; mobile uses the top horizontal line.
+function moveSidebarIndicator(menuItem) {
+    const menu = document.querySelector(".sidebar-menu");
+    const link = menuItem?.querySelector("a");
+
+    if (!menu || !link) return;
+
+    let indicator = menu.querySelector(".sidebar-active-indicator");
+    if (!indicator) {
+        indicator = document.createElement("div");
+        indicator.className = "sidebar-active-indicator";
+        menu.appendChild(indicator);
+    }
+
+    const menuRect = menu.getBoundingClientRect();
+    const linkRect = link.getBoundingClientRect();
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
+
+    if (isMobile) {
+        indicator.style.left = `${linkRect.left - menuRect.left + linkRect.width * 0.2}px`;
+        indicator.style.top = `${linkRect.top - menuRect.top}px`;
+        indicator.style.width = `${linkRect.width * 0.6}px`;
+        indicator.style.height = "3px";
+        indicator.style.borderRadius = "0 0 3px 3px";
+    } else {
+        indicator.style.left = `${linkRect.left - menuRect.left - 10}px`;
+        indicator.style.top = `${linkRect.top - menuRect.top + (linkRect.height - 26) / 2}px`;
+        indicator.style.width = "4px";
+        indicator.style.height = "26px";
+        indicator.style.borderRadius = "0 6px 6px 0";
+    }
+
+    indicator.style.opacity = "1";
+}
+
+function activateSidebarItem(menuItem) {
+    document.querySelectorAll(".menu-item").forEach((item) => item.classList.remove("active"));
+    menuItem.classList.add("active");
+    moveSidebarIndicator(menuItem);
+}
+
+function navigateWithSidebarSlide(menuItem, targetUrl) {
+    activateSidebarItem(menuItem);
+    navigateWithTransition(targetUrl, 380);
+}
+
 // Smooth connected page navigation helper
-function navigateWithTransition(targetUrl) {
+function navigateWithTransition(targetUrl, delay = 140) {
     if (!targetUrl) return;
 
     // Check if already on this target page
@@ -51,7 +95,7 @@ function navigateWithTransition(targetUrl) {
 
     setTimeout(() => {
         window.location.href = targetUrl;
-    }, 140);
+    }, delay);
 }
 
 // Reset page transition class if returned via browser back/forward cache
@@ -77,7 +121,7 @@ document.addEventListener("click", (e) => {
 
     // Home is public
     if (page === "home") {
-        navigateWithTransition(rootPrefix + pages.home);
+        navigateWithSidebarSlide(menuItem, rootPrefix + pages.home);
         return;
     }
 
@@ -102,9 +146,9 @@ document.addEventListener("click", (e) => {
     // 👤 Open the correct profile based on user role
     if (page === "profile") {
         if (userRole === "doctor") {
-            navigateWithTransition(rootPrefix + "profile/profile.html");
+            navigateWithSidebarSlide(menuItem, rootPrefix + "profile/profile.html");
         } else if (userRole === "patient") {
-            navigateWithTransition(rootPrefix + "profilepatient/profilepatient.html");
+            navigateWithSidebarSlide(menuItem, rootPrefix + "profilepatient/profilepatient.html");
         } else {
             navigateWithTransition(rootPrefix + "index.html");
         }
@@ -116,13 +160,13 @@ document.addEventListener("click", (e) => {
         if (userRole === "doctor") {
             markAllDoctorAppointmentsAsSeen();
         }
-        navigateWithTransition(rootPrefix + pages.appointments);
+        navigateWithSidebarSlide(menuItem, rootPrefix + pages.appointments);
         return;
     }
 
     // Normal page navigation
     if (pages[page]) {
-        navigateWithTransition(rootPrefix + pages[page]);
+        navigateWithSidebarSlide(menuItem, rootPrefix + pages[page]);
     }
 });
 
@@ -164,10 +208,20 @@ function setActivePage() {
     if ((currentPath.includes("appoint/appoint.html") || currentPath.includes("appoint.html")) && localStorage.getItem("userRole") === "doctor") {
         markAllDoctorAppointmentsAsSeen();
     }
+
+    const activeItem = document.querySelector(".menu-item.active");
+    if (activeItem) {
+        requestAnimationFrame(() => moveSidebarIndicator(activeItem));
+    }
 }
 
 // Ensure active page is set on DOM load and sidebar insertion
 document.addEventListener("DOMContentLoaded", setActivePage);
+
+window.addEventListener("resize", () => {
+    const activeItem = document.querySelector(".menu-item.active");
+    if (activeItem) moveSidebarIndicator(activeItem);
+});
 
 // ==========================================================================
 // 🔔 DOCTOR REAL-TIME APPOINTMENT NOTIFICATION & BADGE SYSTEM
@@ -380,4 +434,3 @@ async function initDoctorNotificationListener() {
 
 // Start notification listener
 initDoctorNotificationListener();
-
