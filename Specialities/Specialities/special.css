@@ -565,3 +565,7 @@ html.dark-mode .footer,
 body.dark-mode .footer {
     border-top-color: var(--line);
 }
+
+* {
+    -webkit-tap-highlight-color: transparent;
+}
