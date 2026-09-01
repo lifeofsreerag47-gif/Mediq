@@ -830,3 +830,7 @@ html.dark-mode .detail-box {
     background: #1c3242 !important;
     border: 1px solid #284459 !important;
 }
+
+* {
+    -webkit-tap-highlight-color: transparent;
+}
