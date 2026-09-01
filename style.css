@@ -309,3 +309,7 @@ body {
 #popup-close:active{
     scale: 0.95;
 }
+
+* {
+    -webkit-tap-highlight-color: transparent;
+}
