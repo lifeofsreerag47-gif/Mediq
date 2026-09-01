@@ -596,3 +596,7 @@ body.dark-mode .cursor-trail {
         display: none;
     }
 }
+
+* {
+    -webkit-tap-highlight-color: transparent;
+}
