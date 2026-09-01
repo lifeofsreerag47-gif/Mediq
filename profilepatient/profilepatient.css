@@ -450,3 +450,7 @@ html.dark-mode .detail-box span,
 body.dark-mode .detail-box span {
     color: #8ecbff !important;
 }
+
+* {
+    -webkit-tap-highlight-color: transparent;
+}
