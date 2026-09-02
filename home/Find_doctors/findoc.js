@@ -6,9 +6,9 @@ import {
     addDoc,
     doc,
     getDoc,
+    getDocs,
     query,
-    where,
-    runTransaction
+    where
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 // ========================================================
@@ -282,7 +282,6 @@ function updateSlotAvailability() {
 }
 
 async function createAppointmentWithinSlotCapacity(appointmentData) {
-    const appointmentRef = doc(collection(db, "appointments"));
     const doctorRef = doc(db, "doctors", appointmentData.doctorId);
     const slotQuery = query(
         collection(db, "appointments"),
@@ -291,25 +290,22 @@ async function createAppointmentWithinSlotCapacity(appointmentData) {
         where("timeSlot", "==", appointmentData.timeSlot)
     );
 
-    return runTransaction(db, async (transaction) => {
-        const [doctorSnap, slotSnap] = await Promise.all([
-            transaction.get(doctorRef),
-            transaction.get(slotQuery)
-        ]);
-        const capacity = getDoctorSlotCapacity(doctorSnap.exists() ? doctorSnap.data() : selectedDoctorForBooking);
-        const bookedCount = slotSnap.docs.filter((slotDoc) =>
-            ["booked", "active", "checked-in", "in-consultation"].includes(slotDoc.data().status)
-        ).length;
+    // Firestore web transactions cannot read a query. Check the selected slot
+    // immediately before inserting the booking instead.
+    const [doctorSnap, slotSnap] = await Promise.all([getDoc(doctorRef), getDocs(slotQuery)]);
+    const capacity = getDoctorSlotCapacity(doctorSnap.exists() ? doctorSnap.data() : selectedDoctorForBooking);
+    const bookedCount = slotSnap.docs.filter((slotDoc) =>
+        ["booked", "active", "checked-in", "in-consultation"].includes(slotDoc.data().status)
+    ).length;
 
-        if (bookedCount >= capacity) {
-            const error = new Error("This time slot is already full.");
-            error.code = "slot-full";
-            throw error;
-        }
+    if (bookedCount >= capacity) {
+        const error = new Error("This time slot is already full.");
+        error.code = "slot-full";
+        throw error;
+    }
 
-        transaction.set(appointmentRef, appointmentData);
-        return appointmentRef.id;
-    });
+    const appointmentSnap = await addDoc(collection(db, "appointments"), appointmentData);
+    return appointmentSnap.id;
 }
 
 function renderDoctors() {
