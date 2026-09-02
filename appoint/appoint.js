@@ -94,6 +94,7 @@ let html5QrScanner = null;
 let doctorActiveAppointments = []; // Active patient appointments for this doctor
 let currentCachedSectionA = [];
 let patientProfilesMap = {}; // Real-time mapping of patientId -> actual profilePicture
+let allAppointments = [];
 
 // ========================================================
 // 2. CONFIGURE VIEW BY ROLE (DOCTOR VS PATIENT)
@@ -115,6 +116,48 @@ if (isDoctor) {
 
 function isQueueAppointment(appt) {
     return ["booked", "active", "checked-in", "in-consultation"].includes(appt.status);
+}
+
+function appointmentTimeValue(appt) {
+    const value = appt.bookedAt || appt.createdAt || "";
+    const time = Date.parse(value);
+    return Number.isNaN(time) ? 0 : time;
+}
+
+function sameDoctor(first, second) {
+    if (first.doctorId && second.doctorId) return first.doctorId === second.doctorId;
+    return Boolean(first.doctorName && second.doctorName && first.doctorName === second.doctorName);
+}
+
+function getQueueForAppointment(appt) {
+    return allAppointments
+        .filter((candidate) => candidate.status !== "cancelled" && isQueueAppointment(candidate) && sameDoctor(candidate, appt))
+        .sort((a, b) => appointmentTimeValue(a) - appointmentTimeValue(b) || a.id.localeCompare(b.id));
+}
+
+function getPatientQueueAhead(appt) {
+    if (!isQueueAppointment(appt)) return -1;
+    const queue = getQueueForAppointment(appt);
+    return queue.findIndex((queueAppt) => queueAppt.id === appt.id);
+}
+
+function notifyPatientWhenNext(appt, peopleAhead) {
+    const notificationKey = `mediq-next-notification-${appt.id}`;
+
+    if (peopleAhead !== 1) {
+        sessionStorage.removeItem(notificationKey);
+        return;
+    }
+
+    if (sessionStorage.getItem(notificationKey) === "shown") return;
+    sessionStorage.setItem(notificationKey, "shown");
+
+    window.showCustomPopup?.({
+        title: "You're next",
+        message: `Only one patient is ahead of you for your appointment with ${appt.doctorName || "your doctor"}. Please be ready.`,
+        type: "info",
+        confirmText: "Got it"
+    }) || window.showBottomToast?.("You're next — only one patient is ahead of you.");
 }
 
 function setDutyControls(doctor = {}) {
@@ -194,6 +237,7 @@ function initRealtimeAppointments() {
             snapshot.forEach((docSnap) => {
                 allList.push({ id: docSnap.id, ...docSnap.data() });
             });
+            allAppointments = allList;
 
             if (loadingMsg) loadingMsg.style.display = "none";
 
@@ -204,6 +248,12 @@ function initRealtimeAppointments() {
                     const isForThisDoc = (appt.doctorId && appt.doctorId === docId) || 
                                          (appt.doctorName && currentUserName && appt.doctorName.toLowerCase().includes(currentUserName.toLowerCase()));
                     return isForThisDoc && appt.status !== "cancelled";
+                });
+
+                // The doctor and patient see the same first-come, first-served queue order.
+                patientAppointments.sort((a, b) => {
+                    const activeDifference = Number(isQueueAppointment(b)) - Number(isQueueAppointment(a));
+                    return activeDifference || appointmentTimeValue(a) - appointmentTimeValue(b) || a.id.localeCompare(b.id);
                 });
 
                 doctorActiveAppointments = patientAppointments.filter(isQueueAppointment);
@@ -227,6 +277,10 @@ function initRealtimeAppointments() {
                 // Patient view: appointments booked by THIS patient
                 const patientAppts = allList.filter((appt) => {
                     return appt.patientId === currentPatientId && appt.status !== "cancelled";
+                });
+
+                patientAppts.forEach((appt) => {
+                    notifyPatientWhenNext(appt, getPatientQueueAhead(appt));
                 });
                 currentCachedSectionA = patientAppts;
                 renderSectionA(patientAppts, false);
@@ -262,7 +316,9 @@ function renderSectionA(appointments, isDoctorView) {
 
     let queueIndex = 0;
     appointments.forEach((appt, idx) => {
-        const cardQueueIndex = isDoctorView && isQueueAppointment(appt) ? queueIndex++ : -1;
+        const cardQueueIndex = isDoctorView
+            ? (isQueueAppointment(appt) ? queueIndex++ : -1)
+            : getPatientQueueAhead(appt);
         const card = createAppointmentCard(appt, isDoctorView, cardQueueIndex);
         appointmentsList.appendChild(card);
     });
@@ -349,6 +405,14 @@ function createAppointmentCard(appt, isDoctorView, queueIndex = 0) {
             ${isDoctorView && queueIndex >= 0 ? `
                 <div style="font-size: 12px; color: #0284c7; margin-top: 6px; font-weight: 600;">
                     Queue Position: #${queueIndex + 1} (~${waitMins} min wait)
+                </div>
+            ` : ""}
+
+            ${!isDoctorView && queueIndex >= 0 ? `
+                <div style="font-size: 12px; color: #0284c7; margin-top: 6px; font-weight: 600;">
+                    ${queueIndex === 0
+                        ? "It is your turn — please check in."
+                        : `${queueIndex} person${queueIndex === 1 ? "" : "s"} ahead of you (~${waitMins} min wait)`}
                 </div>
             ` : ""}
 
