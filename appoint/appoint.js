@@ -6,6 +6,7 @@ import {
     deleteDoc,
     updateDoc,
     addDoc,
+    runTransaction,
     doc,
     query,
     where
@@ -36,6 +37,7 @@ const queueWaitVal = document.getElementById("queueWaitVal");
 const onDutyToggle = document.getElementById("onDutyToggle");
 const onDutyLabel = document.getElementById("onDutyLabel");
 const availableFromNote = document.getElementById("availableFromNote");
+const slotCapacityInput = document.getElementById("slotCapacityInput");
 const appointmentsList = document.getElementById("appointmentsList");
 const noAppointmentsMsg = document.getElementById("no-appointments");
 const loadingMsg = document.getElementById("loading-appointments");
@@ -118,6 +120,41 @@ function isQueueAppointment(appt) {
     return ["booked", "active", "checked-in", "in-consultation"].includes(appt.status);
 }
 
+function getSlotCapacity(doctor = {}) {
+    const capacity = Number(doctor.slotCapacity);
+    return Number.isInteger(capacity) && capacity > 0 ? capacity : 10;
+}
+
+async function addAppointmentWithinSlotCapacity(appointmentData) {
+    const appointmentRef = doc(collection(db, "appointments"));
+    const doctorRef = doc(db, "doctors", appointmentData.doctorId);
+    const slotQuery = query(
+        collection(db, "appointments"),
+        where("doctorId", "==", appointmentData.doctorId),
+        where("date", "==", appointmentData.date),
+        where("timeSlot", "==", appointmentData.timeSlot)
+    );
+
+    return runTransaction(db, async (transaction) => {
+        const [doctorSnap, slotSnap] = await Promise.all([
+            transaction.get(doctorRef),
+            transaction.get(slotQuery)
+        ]);
+
+        const capacity = getSlotCapacity(doctorSnap.exists() ? doctorSnap.data() : {});
+        const bookedCount = slotSnap.docs.filter((slotDoc) => isQueueAppointment(slotDoc.data())).length;
+
+        if (bookedCount >= capacity) {
+            const error = new Error("This time slot is already full.");
+            error.code = "slot-full";
+            throw error;
+        }
+
+        transaction.set(appointmentRef, appointmentData);
+        return appointmentRef.id;
+    });
+}
+
 function appointmentTimeValue(appt) {
     const value = appt.bookedAt || appt.createdAt || "";
     const time = Date.parse(value);
@@ -168,6 +205,9 @@ function setDutyControls(doctor = {}) {
     if (availableFromNote && document.activeElement !== availableFromNote) {
         availableFromNote.value = doctor.availableFrom || "";
     }
+    if (slotCapacityInput && document.activeElement !== slotCapacityInput) {
+        slotCapacityInput.value = String(getSlotCapacity(doctor));
+    }
 }
 
 async function saveDoctorAvailability(updates) {
@@ -194,6 +234,14 @@ if (isDoctor && onDutyToggle) {
 if (isDoctor && availableFromNote) {
     availableFromNote.addEventListener("change", () => {
         saveDoctorAvailability({ availableFrom: availableFromNote.value.trim() });
+    });
+}
+
+if (isDoctor && slotCapacityInput) {
+    slotCapacityInput.addEventListener("change", () => {
+        const capacity = Math.min(100, Math.max(1, Number(slotCapacityInput.value) || 10));
+        slotCapacityInput.value = String(capacity);
+        saveDoctorAvailability({ slotCapacity: capacity });
     });
 }
 
@@ -620,7 +668,7 @@ if (offlinePatientForm) {
         try {
             const todayStr = new Date().toISOString().split("T")[0];
 
-            await addDoc(collection(db, "appointments"), {
+            await addAppointmentWithinSlotCapacity({
                 doctorId: currentDoctorId,
                 doctorName: currentUserName,
                 speciality: "Consultation",
@@ -647,8 +695,10 @@ if (offlinePatientForm) {
         } catch (err) {
             console.error("Offline add error:", err);
             window.showCustomPopup?.({
-                title: "Error",
-                message: "Could not add offline patient.",
+                title: err.code === "slot-full" ? "Time Slot Full" : "Error",
+                message: err.code === "slot-full"
+                    ? "This time slot has reached your patient limit."
+                    : "Could not add offline patient.",
                 type: "error"
             });
         } finally {
