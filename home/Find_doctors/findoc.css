@@ -852,6 +852,19 @@ html.dark-mode .card-wait-badge.busy {
     box-shadow: 0 4px 12px rgba(40, 120, 200, 0.3);
 }
 
+/* A slot at the doctor's configured capacity stays visible but cannot be chosen. */
+.slot-btn:disabled,
+.slot-btn.full {
+    opacity: 0.42;
+    cursor: not-allowed;
+}
+
+.slot-btn:disabled:hover {
+    background: #f8fafc;
+    border-color: #e2e8f0;
+    color: #334155;
+}
+
 /* Notes Textarea */
 .notes-textarea {
     width: 100%;
@@ -1080,37 +1093,4 @@ html.dark-mode .card-wait-badge.busy {
 }
 .ticket-btn-secondary:hover {
     background: #e2e8f0;
-}
-
-@media (max-width: 600px) {
-  .booking-overlay {
-    align-items: center;  /* centers the appointment card vertically */
-    padding: 12px;
-  }
-
-  .booking-modal {
-    width: 100%;
-    max-height: 85dvh;
-    min-height: 420px;
-    padding: 24px 18px;
-    border-radius: 24px;
-    overflow-y: auto;
-  }
-
-  .booking-header h2 {
-    font-size: 24px;
-    padding-right: 46px; /* keeps text clear of close button */
-  }
-
-  .slots-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .booking-confirm-btn {
-    min-height: 52px;
-  }
-}
-
-* {
-    -webkit-tap-highlight-color: transparent;
 }
