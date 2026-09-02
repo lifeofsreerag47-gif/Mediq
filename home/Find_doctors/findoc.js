@@ -6,7 +6,9 @@ import {
     addDoc,
     doc,
     getDoc,
-    query
+    query,
+    where,
+    runTransaction
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 // ========================================================
@@ -96,6 +98,7 @@ const baselineDoctors = [
 // ========================================================
 let allDoctors = [];
 let doctorQueueCounts = {}; // doctorId -> count of active/booked appointments
+let allAppointments = [];
 
 const doctorCardsContainer = document.getElementById("doctorCardsContainer");
 const totalDoctorsCount = document.getElementById("totalDoctorsCount");
@@ -143,8 +146,10 @@ function initAppointmentsListener() {
         const q = query(collection(db, "appointments"));
         onSnapshot(q, (snapshot) => {
             const counts = {};
+            allAppointments = [];
             snapshot.forEach((docSnap) => {
-                const appt = docSnap.data();
+                const appt = { id: docSnap.id, ...docSnap.data() };
+                allAppointments.push(appt);
                 // Count appointments that are still in the live queue.
                 if (["booked", "active", "checked-in", "in-consultation"].includes(appt.status)) {
                     const docKey = appt.doctorId || appt.doctorName;
@@ -158,6 +163,7 @@ function initAppointmentsListener() {
             });
             doctorQueueCounts = counts;
             renderDoctors();
+            updateSlotAvailability();
         }, (err) => {
             console.error("Appointments queue listener error:", err);
         });
@@ -241,6 +247,69 @@ function getSelectedSpecialties() {
 
 function getDoctorQueueCount(doc) {
     return doctorQueueCounts[doc.id] || doctorQueueCounts[doc.fullName] || 0;
+}
+
+function getDoctorSlotCapacity(doc) {
+    const capacity = Number(doc.slotCapacity);
+    return Number.isInteger(capacity) && capacity > 0 ? capacity : 10;
+}
+
+function getSlotBookingCount(doctor, date, timeSlot) {
+    return allAppointments.filter((appt) => {
+        const isForDoctor = appt.doctorId === doctor.id ||
+            (!appt.doctorId && appt.doctorName === doctor.fullName);
+        return isForDoctor && appt.date === date && appt.timeSlot === timeSlot &&
+            ["booked", "active", "checked-in", "in-consultation"].includes(appt.status);
+    }).length;
+}
+
+function updateSlotAvailability() {
+    if (!selectedDoctorForBooking || !appointmentDate.value) return;
+
+    const capacity = getDoctorSlotCapacity(selectedDoctorForBooking);
+    slotsGrid.querySelectorAll(".slot-btn").forEach((button) => {
+        const bookedCount = getSlotBookingCount(selectedDoctorForBooking, appointmentDate.value, button.dataset.slot);
+        const isFull = bookedCount >= capacity;
+        button.disabled = isFull;
+        button.classList.toggle("full", isFull);
+        button.title = isFull ? "This time slot is full" : "";
+
+        if (isFull && button.classList.contains("selected")) {
+            button.classList.remove("selected");
+            selectedTimeSlot = "";
+        }
+    });
+}
+
+async function createAppointmentWithinSlotCapacity(appointmentData) {
+    const appointmentRef = doc(collection(db, "appointments"));
+    const doctorRef = doc(db, "doctors", appointmentData.doctorId);
+    const slotQuery = query(
+        collection(db, "appointments"),
+        where("doctorId", "==", appointmentData.doctorId),
+        where("date", "==", appointmentData.date),
+        where("timeSlot", "==", appointmentData.timeSlot)
+    );
+
+    return runTransaction(db, async (transaction) => {
+        const [doctorSnap, slotSnap] = await Promise.all([
+            transaction.get(doctorRef),
+            transaction.get(slotQuery)
+        ]);
+        const capacity = getDoctorSlotCapacity(doctorSnap.exists() ? doctorSnap.data() : selectedDoctorForBooking);
+        const bookedCount = slotSnap.docs.filter((slotDoc) =>
+            ["booked", "active", "checked-in", "in-consultation"].includes(slotDoc.data().status)
+        ).length;
+
+        if (bookedCount >= capacity) {
+            const error = new Error("This time slot is already full.");
+            error.code = "slot-full";
+            throw error;
+        }
+
+        transaction.set(appointmentRef, appointmentData);
+        return appointmentRef.id;
+    });
 }
 
 function renderDoctors() {
@@ -443,6 +512,7 @@ function openBookingModal(doc) {
     slotsGrid.querySelectorAll(".slot-btn").forEach((btn) => {
         btn.classList.remove("selected");
     });
+    updateSlotAvailability();
 
     // Reset notes and word counter
     appointmentNotes.value = "";
@@ -462,10 +532,16 @@ bookingOverlay.addEventListener("click", (e) => {
     if (e.target === bookingOverlay) closeBooking();
 });
 
+appointmentDate.addEventListener("change", () => {
+    selectedTimeSlot = "";
+    slotsGrid.querySelectorAll(".slot-btn").forEach((btn) => btn.classList.remove("selected"));
+    updateSlotAvailability();
+});
+
 // Time Slot Button Selection
 slotsGrid.addEventListener("click", (e) => {
     const slotBtn = e.target.closest(".slot-btn");
-    if (!slotBtn) return;
+    if (!slotBtn || slotBtn.disabled) return;
 
     slotsGrid.querySelectorAll(".slot-btn").forEach((b) => b.classList.remove("selected"));
     slotBtn.classList.add("selected");
@@ -545,8 +621,7 @@ confirmBookingBtn.addEventListener("click", async () => {
             bookedAt: new Date().toISOString()
         };
 
-        const docRef = await addDoc(collection(db, "appointments"), apptData);
-        apptData.id = docRef.id;
+        apptData.id = await createAppointmentWithinSlotCapacity(apptData);
 
         // Close Booking Modal
         closeBooking();
@@ -562,8 +637,10 @@ confirmBookingBtn.addEventListener("click", async () => {
     } catch (err) {
         console.error("Booking error:", err);
         window.showCustomPopup?.({
-            title: "Booking Failed",
-            message: "Could not complete your booking. Please try again.",
+            title: err.code === "slot-full" ? "Time Slot Full" : "Booking Failed",
+            message: err.code === "slot-full"
+                ? "This time slot has just filled up. Please choose another available slot."
+                : "Could not complete your booking. Please try again.",
             type: "error"
         }) || alert("Could not complete booking.");
     } finally {
