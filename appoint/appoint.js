@@ -6,7 +6,8 @@ import {
     deleteDoc,
     updateDoc,
     addDoc,
-    runTransaction,
+    getDoc,
+    getDocs,
     doc,
     query,
     where
@@ -126,7 +127,6 @@ function getSlotCapacity(doctor = {}) {
 }
 
 async function addAppointmentWithinSlotCapacity(appointmentData) {
-    const appointmentRef = doc(collection(db, "appointments"));
     const doctorRef = doc(db, "doctors", appointmentData.doctorId);
     const slotQuery = query(
         collection(db, "appointments"),
@@ -135,24 +135,20 @@ async function addAppointmentWithinSlotCapacity(appointmentData) {
         where("timeSlot", "==", appointmentData.timeSlot)
     );
 
-    return runTransaction(db, async (transaction) => {
-        const [doctorSnap, slotSnap] = await Promise.all([
-            transaction.get(doctorRef),
-            transaction.get(slotQuery)
-        ]);
+    // The Web Firestore Transaction API reads documents, not queries. Read the
+    // current slot safely, then add only if the doctor's configured limit allows it.
+    const [doctorSnap, slotSnap] = await Promise.all([getDoc(doctorRef), getDocs(slotQuery)]);
+    const capacity = getSlotCapacity(doctorSnap.exists() ? doctorSnap.data() : {});
+    const bookedCount = slotSnap.docs.filter((slotDoc) => isQueueAppointment(slotDoc.data())).length;
 
-        const capacity = getSlotCapacity(doctorSnap.exists() ? doctorSnap.data() : {});
-        const bookedCount = slotSnap.docs.filter((slotDoc) => isQueueAppointment(slotDoc.data())).length;
+    if (bookedCount >= capacity) {
+        const error = new Error("This time slot is already full.");
+        error.code = "slot-full";
+        throw error;
+    }
 
-        if (bookedCount >= capacity) {
-            const error = new Error("This time slot is already full.");
-            error.code = "slot-full";
-            throw error;
-        }
-
-        transaction.set(appointmentRef, appointmentData);
-        return appointmentRef.id;
-    });
+    const appointmentSnap = await addDoc(collection(db, "appointments"), appointmentData);
+    return appointmentSnap.id;
 }
 
 function appointmentTimeValue(appt) {
