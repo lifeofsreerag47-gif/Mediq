@@ -103,6 +103,7 @@ const searchInput = document.getElementById("doctorSearch");
 const searchBtn = document.getElementById("searchBtn");
 const clearFiltersBtn = document.getElementById("clearFilters");
 const filterCheckboxes = document.querySelectorAll(".filter-spec");
+const leastWaitingTimeFilter = document.getElementById("leastWaitingTimeFilter");
 
 // Booking Modal Elements
 const bookingOverlay = document.getElementById("bookingOverlay");
@@ -238,6 +239,10 @@ function getSelectedSpecialties() {
     return selected;
 }
 
+function getDoctorQueueCount(doc) {
+    return doctorQueueCounts[doc.id] || doctorQueueCounts[doc.fullName] || 0;
+}
+
 function renderDoctors() {
     const selectedSpecs = getSelectedSpecialties();
     const searchQuery = (searchInput.value || "").trim().toLowerCase();
@@ -271,6 +276,16 @@ function renderDoctors() {
         return true;
     });
 
+    // Keep specialty/search filters first, then optionally order the matches by
+    // the live Firestore queue length (shortest wait first).
+    if (leastWaitingTimeFilter?.checked) {
+        filtered.sort((a, b) => {
+            const queueDifference = getDoctorQueueCount(a) - getDoctorQueueCount(b);
+            if (queueDifference !== 0) return queueDifference;
+            return (a.fullName || "").localeCompare(b.fullName || "");
+        });
+    }
+
     totalDoctorsCount.textContent = String(filtered.length).padStart(3, "0");
 
     if (filtered.length === 0) {
@@ -302,7 +317,7 @@ function createDoctorCard(doc) {
     const imgSrc = doc.profileImageURL || "https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=400";
 
     // Dynamic Waiting Time Calculation: 15 mins per patient ahead
-    const queueCount = doctorQueueCounts[doc.id] || doctorQueueCounts[doc.fullName] || 0;
+    const queueCount = getDoctorQueueCount(doc);
     const isOnDuty = doc.onDuty === true;
     const availableFrom = (doc.availableFrom || "").trim();
     const estWaitMins = queueCount * 15;
@@ -380,6 +395,10 @@ filterCheckboxes.forEach((cb) => {
     cb.addEventListener("change", renderDoctors);
 });
 
+if (leastWaitingTimeFilter) {
+    leastWaitingTimeFilter.addEventListener("change", renderDoctors);
+}
+
 searchInput.addEventListener("input", renderDoctors);
 if (searchBtn) {
     searchBtn.addEventListener("click", renderDoctors);
@@ -388,6 +407,7 @@ if (searchBtn) {
 if (clearFiltersBtn) {
     clearFiltersBtn.addEventListener("click", () => {
         filterCheckboxes.forEach((cb) => (cb.checked = false));
+        if (leastWaitingTimeFilter) leastWaitingTimeFilter.checked = false;
         searchInput.value = "";
         renderDoctors();
     });
