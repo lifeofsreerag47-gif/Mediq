@@ -819,6 +819,49 @@ h1 {
     background: #2878c8;
 }
 
+/* Keep the doctor's toolbar inside narrow mobile screens. */
+@media (max-width: 768px) {
+    body.appointments-page {
+        overflow-x: hidden;
+    }
+
+    .page-header-row {
+        padding-right: 0;
+    }
+
+    .stats-and-actions {
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .duty-control {
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    #availableFromNote {
+        flex: 1 1 150px;
+        min-width: 0;
+        width: auto;
+    }
+
+    .slot-capacity-control {
+        flex: 1 1 auto;
+        justify-content: space-between;
+    }
+
+    .queue-badge {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .action-tool-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
 /* =========================
    DARK MODE 🌙
 ========================= */
