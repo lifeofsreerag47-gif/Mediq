@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Appointments | MediQ</title>
@@ -47,6 +46,10 @@
                     <span id="onDutyLabel">Offline</span>
                 </label>
                 <input type="text" id="availableFromNote" maxlength="80" placeholder="Available from (optional)" aria-label="Available from note">
+                <label class="slot-capacity-control" for="slotCapacityInput">
+                    Patients / time slot
+                    <input type="number" id="slotCapacityInput" min="1" max="100" value="10" inputmode="numeric">
+                </label>
             </div>
             <div class="queue-badge" id="doctorQueueBadge">
                 <span>👥 Queue:</span>
