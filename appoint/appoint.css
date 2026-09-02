@@ -92,6 +92,26 @@ h1 {
     outline: none;
 }
 
+.slot-capacity-control {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: #1d3557;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+#slotCapacityInput {
+    width: 56px;
+    padding: 8px 7px;
+    border: 1px solid #B5DCFF;
+    border-radius: 18px;
+    font-family: "font", sans-serif;
+    font-size: 12px;
+    outline: none;
+}
+
 .queue-badge {
     background: #ffffff;
     color: #1d3557;
@@ -829,8 +849,4 @@ html.dark-mode .ticket-body {
 html.dark-mode .detail-box {
     background: #1c3242 !important;
     border: 1px solid #284459 !important;
-}
-
-* {
-    -webkit-tap-highlight-color: transparent;
 }
