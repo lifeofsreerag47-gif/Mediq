@@ -1123,3 +1123,7 @@ html.dark-mode .card-wait-badge.busy {
     min-height: 52px;
   }
 }
+
+* {
+    -webkit-tap-highlight-color: transparent;
+}
